@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { MdPhone, MdEmail } from 'react-icons/md';
 import { FaSignInAlt, FaUserPlus } from 'react-icons/fa';
@@ -8,54 +8,53 @@ import logo from "../../assets/Logo (1).png";
 import logoName from "../../assets/Indiashop.png";
 import { IoMdCart } from "react-icons/io";
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaWhatsapp, FaBars, FaTimes } from 'react-icons/fa';
-import { setProductData, setBanner, setCategory } from '../../slices/productSlice';
+import { CgProfile } from 'react-icons/cg'; // Added for profile icon
+import { setProductData } from '../../slices/productSlice';
 import { searchAll } from '../../services/operations/search';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../services/operations/auth';
 
 export default function Navbar() {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const { profileData, token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const [dropdownOpen, setDropdownOpen] = useState(false); // State for dropdown
 
-
-  
-  
   const submitHandler = () => {
     navigate("/become-seller");
   };
 
-  
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen); // Toggle dropdown visibility
+  };
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      // navigate(`/search?q=${searchQuery}`);
-      searchProducts(searchQuery)
-
-      window.scroll({
-        top: 600,
-        left: 0,
-        behavior: "smooth",
-      });
-      toggleMenu()
+      searchProducts(searchQuery);
+      window.scroll({ top: 600, left: 0, behavior: "smooth" });
+      toggleMenu();
     }
-    
   };
-
-  const dispatch = useDispatch();
 
   const searchProducts = async (q) => {
     try {
-      const response = await searchAll(q)
+      const response = await searchAll(q);
       dispatch(setProductData(response));
     } catch (error) {
       console.error("Error searching products: ", error);
     }
   };
+
+  useEffect(() => {
+    console.log("PRO ", profileData, token);
+  }, []);
 
   return (
     <div>
@@ -133,12 +132,42 @@ export default function Navbar() {
               placeholder='Search for anything'
               className='w-full outline-none bg-transparent'
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)} // Update state on input change
+              onChange={(e) => setSearchQuery(e.target.value)} 
             />
           </form>
 
-          <IoMdCart style={{ width: "27px", height: "27px" }} className='text-green text-2xl' />
+          <IoMdCart onClick={() => navigate("/cart")} style={{ width: "27px", height: "27px" }} className='text-green text-2xl' />
           <Button onClick={submitHandler} content={"Become a Seller"} icon={"CiShop"} />
+
+          {/* Profile Image with Dropdown */}
+          {token && (
+            <div className="relative">
+              <button 
+                onClick={toggleDropdown} 
+                className="flex items-center justify-center p-2 bg-transparent border-none rounded-full hover:scale-105 transition-transform"
+              >
+                <img 
+                  src={profileData?.profileImage} 
+                  alt="Profile" 
+                  className="w-12 h-12 rounded-full border-2 border-green-500 object-cover"
+                />
+              </button>
+              {/* Dropdown Menu */}
+              {dropdownOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white text-black shadow-lg rounded-md z-50">
+                  <Link to="/profile" className="block px-4 py-2 hover:bg-gray-200">
+                    Profile
+                  </Link>
+                  <button 
+                    onClick={() => { logout(dispatch); setDropdownOpen(false); }} 
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-200"
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Mobile Menu Icon */}
@@ -160,34 +189,46 @@ export default function Navbar() {
             <CiSearch />
             <input
               placeholder='Search for anything'
-              className="bg-black text-white w-full outline-none"
+              className='w-full outline-none bg-transparent'
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => setSearchQuery(e.target.value)} 
             />
           </form>
 
-          {/* Navigation Links */}
           <NavLink to="/" className="py-2 hover:text-green-500" onClick={toggleMenu}>HOME</NavLink>
           <NavLink to="/order-on-demand" className="py-2 hover:text-green-500" onClick={toggleMenu}>ORDER ON DEMAND</NavLink>
           <NavLink to="/category" className="py-2 hover:text-green-500" onClick={toggleMenu}>CATEGORY</NavLink>
 
-          {/* Shopping Cart and Seller Button */}
-          <div className='flex items-center py-2'>
-            CART
-          </div>
-          <div className='flex items-center py-2'>
-            <Button onClick={submitHandler} content={"Become a Seller"} icon={"CiShop"} />
-          </div>
-
-          {/* Login and Register at Bottom */}
-          <div className='flex shadow-sm shadow-gray-200 absolute bottom-0 w-full left-0 p-2 flex-row py-2 justify-between'>
-            <Link to='/login' className='flex flex-row justify-center items-center py-2 hover:text-green-500' onClick={toggleMenu}>
-              <FaSignInAlt className='mr-2' /> Login
-            </Link>
-            <Link to='/register' className='flex flex-row justify-center items-center py-2 hover:text-green-500' onClick={toggleMenu}>
-              <FaUserPlus className='mr-2' /> Register
-            </Link>
-          </div>
+          {/* Profile and Logout in Mobile View */}
+          {token && (
+            <div className="relative">
+              <button 
+                onClick={toggleDropdown} 
+                className="flex items-center py-2"
+              >
+                <img 
+                  src={profileData?.profileImage} 
+                  alt="Profile" 
+                  className="w-10 h-10 rounded-full border-2 border-green-500 object-cover"
+                />
+                <span className="ml-2">Profile</span>
+              </button>
+              {/* Dropdown Menu for Mobile */}
+              {dropdownOpen && (
+                <div className="absolute left-0 mt-2 w-48 bg-white text-black shadow-lg rounded-md z-50">
+                  <Link to="/profile" className="block px-4 py-2 hover:bg-gray-200">
+                    Profile
+                  </Link>
+                  <button 
+                    onClick={() => { logout(dispatch); setDropdownOpen(false); }} 
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-200"
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
         </nav>
       </div>
     </div>

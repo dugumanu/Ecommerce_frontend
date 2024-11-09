@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { MdPhone, MdEmail } from 'react-icons/md';
 import { FaSignInAlt, FaUserPlus } from 'react-icons/fa';
@@ -20,10 +20,10 @@ export default function Navbar() {
   const [searchQuery, setSearchQuery] = useState("");
   const { profileData, token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const [dropdownOpen, setDropdownOpen] = useState(false); // State for dropdown
+  const [dropdownOpen, setDropdownOpen] = useState(false); 
 
   const submitHandler = () => {
-    navigate("/become-seller");
+    navigate("/register/seller");
   };
 
   const toggleMenu = () => {
@@ -31,16 +31,22 @@ export default function Navbar() {
   };
 
   const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen); // Toggle dropdown visibility
+    setDropdownOpen(!dropdownOpen); 
   };
 
+  const menuRef = useRef(null);
+  const dropdownRef = useRef(null);
+
   const handleSearchSubmit = (e) => {
+    navigate("/")
     e.preventDefault();
     if (searchQuery.trim()) {
       searchProducts(searchQuery);
+      
       window.scroll({ top: 600, left: 0, behavior: "smooth" });
       toggleMenu();
     }
+    
   };
 
   const searchProducts = async (q) => {
@@ -53,14 +59,25 @@ export default function Navbar() {
   };
 
   useEffect(() => {
-    console.log("PRO ", profileData, token);
+    const handleClickOutside = (event) => {
+      if (
+        menuRef.current && !menuRef.current.contains(event.target) &&
+        dropdownRef.current && !dropdownRef.current.contains(event.target)
+      ) {
+        setIsMenuOpen(false);
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
-    <div>
+    <div >
       {/* Top Navbar - Hidden in mobile view */}
       <div className='bg-black text-[14px] p-2 md:px-[8%] text-white flex flex-row justify-between items-center w-full hidden md:flex'>
-        {/* Contact and social icons */}
+        
         <div className='flex w-[50%] justify-center items-center space-x-4'>
           <p className='flex items-center'>
             <a href="tel:+1234567890" className='flex justify-center flex-row items-center'>
@@ -80,7 +97,7 @@ export default function Navbar() {
               <FaSignInAlt className='mr-2' /> Login
             </Link>
             <div className='border-[1px] border-white h-[20px] w-[2px]'></div>
-            <Link to='/register' className='flex flex-row justify-center items-center hover:text-green-500'>
+            <Link to='/register/customer' className='flex flex-row justify-center items-center hover:text-green-500'>
               <FaUserPlus className='mr-2' /> Register
             </Link>
           </div>
@@ -141,7 +158,7 @@ export default function Navbar() {
 
           {/* Profile Image with Dropdown */}
           {token && (
-            <div className="relative">
+            <div  className="relative">
               <button 
                 onClick={toggleDropdown} 
                 className="flex items-center justify-center p-2 bg-transparent border-none rounded-full hover:scale-105 transition-transform"
@@ -155,7 +172,9 @@ export default function Navbar() {
               {/* Dropdown Menu */}
               {dropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white text-black shadow-lg rounded-md z-50">
-                  <Link to="/profile" className="block px-4 py-2 hover:bg-gray-200">
+                  <Link onClick={() => {
+                    navigate("/dashboard")
+                  }}  to="/dashboard" className="block px-4 py-2 hover:bg-gray-200">
                     Profile
                   </Link>
                   <button 
@@ -177,9 +196,37 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Menu - Left Side Sliding */}
-      <div className={`fixed md:hidden top-0 left-0 h-full bg-black text-white w-[250px] z-50 transform ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out`}>
-        <div className='flex justify-between p-4'>
-          <h2 className='text-lg font-semibold'>Menu</h2>
+      <div ref={menuRef} className={`fixed md:hidden top-0 left-0 h-full bg-black text-white w-[250px] z-50 transform ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out`}>
+        <div className='flex justify-between px-4 py-2 items-center'>
+        {token ? (
+            <div  className="relative">
+              <button 
+                onClick={toggleDropdown} 
+                className="flex items-center py-2"
+              >
+                <img 
+                  src={profileData?.profileImage} 
+                  alt="Profile" 
+                  className="w-10 h-10 rounded-full border-2 border-green-500 object-cover"
+                />
+                
+              </button>
+              
+              {dropdownOpen && (
+                <div className="absolute left-0 mt-2 w-48 bg-white text-black shadow-lg rounded-md z-50">
+                  <Link onClick={() => setIsMenuOpen(false)} to="/dashboard" className="block px-4 py-2 hover:bg-gray-200">
+                    Profile
+                  </Link>
+                  <button 
+                    onClick={() => { logout(dispatch); setDropdownOpen(false); }} 
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-200"
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : ( <p className=' text-green font-bold ' > MENU </p> ) }
           <FaTimes className="text-xl cursor-pointer" onClick={toggleMenu} />
         </div>
 
@@ -195,41 +242,33 @@ export default function Navbar() {
             />
           </form>
 
-          <NavLink to="/" className="py-2 hover:text-green-500" onClick={toggleMenu}>HOME</NavLink>
-          <NavLink to="/order-on-demand" className="py-2 hover:text-green-500" onClick={toggleMenu}>ORDER ON DEMAND</NavLink>
-          <NavLink to="/category" className="py-2 hover:text-green-500" onClick={toggleMenu}>CATEGORY</NavLink>
-
-          {/* Profile and Logout in Mobile View */}
-          {token && (
-            <div className="relative">
-              <button 
-                onClick={toggleDropdown} 
-                className="flex items-center py-2"
-              >
-                <img 
-                  src={profileData?.profileImage} 
-                  alt="Profile" 
-                  className="w-10 h-10 rounded-full border-2 border-green-500 object-cover"
-                />
-                <span className="ml-2">Profile</span>
-              </button>
-              {/* Dropdown Menu for Mobile */}
-              {dropdownOpen && (
-                <div className="absolute left-0 mt-2 w-48 bg-white text-black shadow-lg rounded-md z-50">
-                  <Link to="/profile" className="block px-4 py-2 hover:bg-gray-200">
-                    Profile
-                  </Link>
-                  <button 
-                    onClick={() => { logout(dispatch); setDropdownOpen(false); }} 
-                    className="block w-full text-left px-4 py-2 hover:bg-gray-200"
-                  >
-                    Logout
-                  </button>
-                </div>
-              )}
-            </div>
-          )}
+          <div className='flex w-full justify-between items-center' >
+          <IoMdCart onClick={() => navigate("/cart")} style={{ width: "27px", height: "27px" }} className='text-green text-2xl' />
+          <Button onClick={submitHandler} content={"Become a Seller"} icon={"CiShop"} />
+          </div>
+          <NavLink to="/" className="py-2 hover:text-green" onClick={toggleMenu}>HOME</NavLink>
+          <NavLink to="/order-on-demand" className="py-2 hover:text-green" onClick={toggleMenu}>ORDER ON DEMAND</NavLink>
+          <NavLink to="/category" className="py-2 hover:text-green" onClick={toggleMenu}>CATEGORY</NavLink>
+        
+          
+          
         </nav>
+
+
+          {/* Login and Register at Bottom */}
+        {
+          token === null && (
+            <div className='flex shadow-sm shadow-gray-200 absolute bottom-0 w-full left-0 p-2 flex-row py-2 justify-between'>
+            <Link to='/login' className='flex flex-row justify-center items-center py-2 hover:text-green' onClick={toggleMenu}>
+              <FaSignInAlt className='mr-2' /> Login
+            </Link>
+            <Link to='/register/customer' className='flex flex-row justify-center items-center py-2 hover:text-green' onClick={toggleMenu}>
+              <FaUserPlus className='mr-2' /> Register
+            </Link>
+          </div>
+          )
+        }
+
       </div>
     </div>
   );

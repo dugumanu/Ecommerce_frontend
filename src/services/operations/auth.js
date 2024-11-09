@@ -18,8 +18,11 @@ export const loginUser = async (loginData,navigate,keptmelogin,dispatch) => {
             dispatch(setProfileData(response?.data?.existingUser))
             if(keptmelogin) {
                 
-               localStorage.setItem("profileData", response?.data?.existingUser)
-               localStorage.setItem("token", response?.data?.token)
+                if (keptmelogin) {
+                    localStorage.setItem("profileData", JSON.stringify(response?.data?.existingUser));  
+                    localStorage.setItem("token", JSON.stringify(response?.data?.token));  
+                }
+                
 
             }
             navigate(-1);

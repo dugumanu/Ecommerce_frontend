@@ -9,6 +9,8 @@ export const authEndpoints = {
 export const categoryEndpoints = {
     CREATECATEGORY : BASE_URL + "/category/createcategory",
     GET_CATEGORY_BY_ID : (id) => BASE_URL + `/category/getcategorybyid/${id}`,
+    DELETE_CATEGORY_BY_ID : (id) => BASE_URL + `/category/deletecategorybyid/${id}`,
+
     GET_ALL_CATEGORY : BASE_URL + "/category/getallcategory"
 }
 

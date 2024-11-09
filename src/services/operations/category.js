@@ -3,20 +3,34 @@
 import { toast } from 'react-toastify';
 import { categoryEndpoints } from '../api';
 import { apiconnector } from '../apiconnector';
-const {CREATECATEGORY, GET_ALL_CATEGORY , GET_CATEGORY_BY_ID, } = categoryEndpoints
+import axios from 'axios';
+const {CREATECATEGORY, GET_ALL_CATEGORY , GET_CATEGORY_BY_ID, DELETE_CATEGORY_BY_ID } = categoryEndpoints
 
 
-export const createCategory = async (categoryData) => {
+
+
+export const createCategory = async (categoryData,token) => {
     const toastId = toast.loading("Creating category...");
+    console.log("token ", token)
     try {
-        const response = await apiconnector("POST", CREATECATEGORY, categoryData);
+        // Define headers
+        const headers = {
+            'Content-Type': 'multipart/form-data',
+            'Authorization': `Bearer ${token}`,  // replace `token` with the actual authorization token
+        };
+
+        // Send request with headers and JSON data
+        const response = await axios.post(CREATECATEGORY, categoryData, { headers });
+
+        // Handle success response
         if (response?.data?.success) {
             toast.success("Category created successfully");
-            return response.data.category; 
+            return response.data.category;
         } else {
-            throw new Error("Failed to create category");
+            throw new Error(response.data.message || "Failed to create category");
         }
     } catch (error) {
+        // Handle error response
         toast.error("Failed to create category");
         console.error("CREATE CATEGORY ERROR:", error);
         return null;
@@ -24,6 +38,7 @@ export const createCategory = async (categoryData) => {
         toast.dismiss(toastId);
     }
 };
+
 
 export const fetchCategoryById = async (id) => {
     const toastId = toast.loading("Loading category...");
@@ -45,6 +60,39 @@ export const fetchCategoryById = async (id) => {
         toast.dismiss(toastId);
     }
 };
+
+export const deleteCategoryById = async (id, token) => {
+    const toastId = toast.loading("Deleting category...");
+    try {
+        const response = await fetch(DELETE_CATEGORY_BY_ID(id), {
+            method: 'DELETE',  // Specify the DELETE request method
+            headers: {
+                'Authorization': `Bearer ${token}`,  // Pass token in the Authorization header
+                'Content-Type': 'application/json'  
+            }
+        });
+        console.log("Response from deleting category: ", response);
+
+
+        const data = await response.json(); 
+
+        if (response.ok && data.success) {
+            toast.success("Category deleted successfully");
+            console.log("Response from deleting category: ", data);
+            return data.category;  
+        } else {
+            throw new Error(data.message || 'Failed to delete category');
+        }
+    } catch (error) {
+        toast.error("Failed to delete category");
+        console.error("DELETE CATEGORY ERROR:", error);
+        return null;
+    } finally {
+        toast.dismiss(toastId);
+    }
+};
+
+
 
 
 export const fetchAllCategories = async () => {

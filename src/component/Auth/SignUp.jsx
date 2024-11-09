@@ -2,18 +2,22 @@ import React, { useState } from "react";
 import { FaUser, FaEnvelope, FaMobileAlt, FaLock } from "react-icons/fa";
 import { toast } from "react-hot-toast";
 import { signupUser } from "../../services/operations/auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 function Signup() {
+    const {role} = useParams();
     const [formData, setFormData] = useState({
         fullName: "",
         email: "",
         mobile: "",
         password: "",
         confirmPassword: "",
-        termsAccepted: false
+        termsAccepted: false,
+        role : role === "seller" ? "seller" : "customer"
     });
+    
+    
 
     const handleInputChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -29,6 +33,8 @@ function Signup() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log("Form data submitted:", formData);
+
+        
 
         if(!formData.termsAccepted) {
             toast.error("Read and Accept all Terms and Conditions")
@@ -46,7 +52,7 @@ function Signup() {
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
             <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
-                <h2 className="text-2xl font-bold text-center mb-6">Register</h2>
+                <h2 className="text-2xl font-bold text-center mb-6">Register {role === "seller" && "as Seller" } </h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="relative">
                         <FaUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />

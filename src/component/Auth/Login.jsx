@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { FaUser, FaLock } from "react-icons/fa";
 import { loginUser } from "../../services/operations/auth";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 function Login() {
     const [formData, setFormData] = useState({
@@ -11,21 +11,28 @@ function Login() {
         keepLoggedIn: false,
     });
 
-    const handleInputChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        setFormData({
-            ...formData,
-            [name]: type === "checkbox" ? checked : value,
-        });
-    };
+    const { profileData, token } = useSelector((state) => state.auth);
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const location = useLocation(); 
     const dispatch = useDispatch();
-
-    const handleSubmit =  async(e) => {
-        e.preventDefault();
-        console.log("Form data submitted:", formData);
-        await loginUser(formData,navigate,formData.keepLoggedIn,dispatch)
+  
+    const from = location.state?.from?.pathname || "/dashboard"; 
+  
+    const handleInputChange = (e) => {
+      const { name, value, type, checked } = e.target;
+      setFormData({
+        ...formData,
+        [name]: type === "checkbox" ? checked : value,
+      });
+    };
+  
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      console.log("Form data submitted:", formData);
+      await loginUser(formData, navigate, formData.keepLoggedIn, dispatch);
+      console.log("Profile Data ", profileData)
+      navigate(from, { replace: true });  
     };
 
     return (
@@ -88,7 +95,7 @@ function Login() {
                         Sign in with Google
                     </button>
                     <p className="text-center text-sm text-gray-500 mt-4">
-                        Don’t have an account? <a href="/register" className="text-blue-500 hover:underline">Register now</a>
+                        Don’t have an account? <a href="/register/customer" className="text-blue-500 hover:underline">Register now</a>
                     </p>
                 </form>
             </div>

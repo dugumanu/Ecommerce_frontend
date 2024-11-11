@@ -13,7 +13,7 @@ export default function Sidebar() {
   const isActive = location.pathname === "/dashboard";
 
   return (
-    <div className="md:bg-transparent no-scrollbar bg-black text-white w-[20rem] h-screen fixed py-8 shadow-lg"> 
+    <div className="md:bg-transparent no-scrollbar bg-black text-white w-[20rem] h-screen fixed  md:py-8 shadow-lg"> 
       <div className="flex flex-col p-5 space-y-6">
         <Link
           to="/dashboard"

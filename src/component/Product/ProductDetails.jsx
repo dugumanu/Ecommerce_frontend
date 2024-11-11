@@ -198,6 +198,15 @@ export default function ProductDetail() {
           </div>
         </div>
       </div>
+      <div className='flex px-[5%] mt-[2%] md:px-[13%] flex-col justify-center items-start gap-3'>
+  <p className='text-2xl font-semibold text-gray-800'>About the product</p>
+  {productData?.about && (
+    <p className='text-gray-700 text-base leading-relaxed'>
+      {productData?.about}
+    </p>
+  )}
+</div>
+
 
     
       <div className='w-full mt-[3%] flex flex-col justify-center items-center'>

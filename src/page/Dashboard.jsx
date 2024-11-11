@@ -29,7 +29,7 @@ export default function Dashboard() {
   return (
     <div className="flex min-h-screen z-0"> 
       {isMobile ? (
-        <Menu>
+        <Menu >
           <Sidebar />
         </Menu>
       ) : (

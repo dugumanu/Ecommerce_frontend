@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { MdPhone, MdEmail } from 'react-icons/md';
 import { FaSignInAlt, FaUserPlus } from 'react-icons/fa';
 import { CiSearch, CiShoppingCart } from "react-icons/ci";
@@ -72,6 +72,11 @@ export default function Navbar() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+
+  const location = useLocation();
+
+  const isDashboardPage = location.pathname.startsWith("/dashboard");
 
   return (
     <div >
@@ -190,9 +195,13 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Menu Icon */}
-        <div className='flex md:hidden'>
+        {
+          !isDashboardPage && (
+            <div className='flex md:hidden'>
           <FaBars className="text-2xl cursor-pointer" onClick={toggleMenu} />
         </div>
+          )
+        }
       </div>
 
       {/* Mobile Menu - Left Side Sliding */}

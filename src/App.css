@@ -1,12 +1,4 @@
-.modal {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 400px;
-    margin: auto;
-    position: relative;
-    top: 20%;
-  }
+
   
   .overlay {
     background: rgba(0, 0, 0, 0.5);
@@ -20,3 +12,57 @@
     align-items: center;
   }
   
+
+  
+.bm-burger-button {
+  position: fixed;
+  width: 30px;
+  height: 25px;
+
+  top: 20px;
+  right: 20px;   
+}
+
+.bm-burger-bars {
+  background: #222E3C;
+}
+
+.bm-cross-button {
+  height: 28px;
+  width: 28px;
+}
+
+.bm-cross {
+  background: #030303;
+}
+
+
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+
+
+
+

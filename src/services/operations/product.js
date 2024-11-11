@@ -3,12 +3,21 @@
 import { toast } from 'react-toastify';
 import { apiconnector } from '../apiconnector';
 import { productsEndpoints } from '../api';
+import axios from 'axios';
 const {CREATE_PRODUCT,FOR_YOU, GET_ALL_PRODUCTS, GET_PRODUCT_BY_ID,UPDATE_PRODUCTS_BY_ID, DELETE_BY_ID, GET_PRODUCT_BY_CATEGORYID} = productsEndpoints
 
-export const createProduct = async (productData) => {
+export const createProduct = async (productData, token) => {
     const toastId = toast.loading("Creating product...");
     try {
-        const response = await apiconnector("POST", CREATE_PRODUCT, productData);
+        const headers = {
+            'Content-Type': 'multipart/form-data',
+            'Authorization': `Bearer ${token}`,  
+        };
+
+        
+        const response = await axios.post(CREATE_PRODUCT, productData, { headers });
+
+        console.log("Product res : ", response)
         if (response?.data?.success) {
             toast.success("Product created successfully");
             return response.data.product;

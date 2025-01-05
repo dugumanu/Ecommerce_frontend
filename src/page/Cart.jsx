@@ -9,6 +9,12 @@ export default function Cart() {
     const navigate = useNavigate();
     const [selectedItem, setSelectedItem] = useState(cart.map((item) => item._id));
 
+    const totalDiscount = cart.reduce((discount, item) => {
+        if (selectedItem.includes(item._id)) {
+          return discount + (item.originalPrice - item.price);
+        }
+        return discount;
+      }, 0);
     // Calculate total price
     const totalPrice = cart.reduce((total, item) => {
         if (selectedItem.includes(item._id)) {
@@ -40,6 +46,23 @@ export default function Cart() {
                 <p className="text-gray-600 text-lg">No items added to the cart.</p>
             </div>
         );
+    }
+
+    const buyNowHandler = () => {
+
+        if (!Array.isArray(selectedItem) || selectedItem.length === 0) {
+            alert("No products have been selected yet.");
+          }
+        else {
+            navigate("/checkout", {
+                state: {
+                  productId: selectedItem,
+                  byCart : true,
+                  totalAmount : totalPrice,
+                  totalDiscount: totalDiscount
+                }
+              })
+        }
     }
 
     return (
@@ -102,7 +125,7 @@ export default function Cart() {
                 {/* Total Price and Buy Now */}
                 <div className="mt-6 w-full flex justify-between items-center">
                     <p className="text-xl font-semibold">Total Price: <span className="text-green-600">₹{totalPrice}</span></p>
-                    <button className="bg-green text-white py-2 px-6 rounded-md hover:bg-green-700 transition">
+                    <button onClick={() => buyNowHandler()} className="bg-green text-white py-2 px-6 rounded-md hover:bg-green-700 transition">
                         Buy Now
                     </button>
                 </div>

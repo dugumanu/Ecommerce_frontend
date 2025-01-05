@@ -8,7 +8,7 @@ const initialState = {
   signUpData: null,
   profileData: storedProfileData ? JSON.parse(storedProfileData) : null,  
   loading: false,
-  token: storedToken ? JSON.parse(storedToken) : null,  
+  token: storedToken ? storedToken : null,  
   paymentLoading: false,
 };
 

@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { apiconnector } from '../apiconnector';
 import { productsEndpoints } from '../api';
 import axios from 'axios';
-const {CREATE_PRODUCT,FOR_YOU, GET_ALL_PRODUCTS, GET_PRODUCT_BY_ID,UPDATE_PRODUCTS_BY_ID, DELETE_BY_ID, GET_PRODUCT_BY_CATEGORYID} = productsEndpoints
+const {CREATE_PRODUCT,FOR_YOU, GET_PRODUCT_BY_USERID, GET_ALL_PRODUCTS, GET_PRODUCT_BY_ID,UPDATE_PRODUCTS_BY_ID, DELETE_BY_ID, GET_PRODUCT_BY_CATEGORYID} = productsEndpoints
 
 export const createProduct = async (productData, token) => {
     const toastId = toast.loading("Creating product...");
@@ -21,6 +21,33 @@ export const createProduct = async (productData, token) => {
         if (response?.data?.success) {
             toast.success("Product created successfully");
             return response.data.product;
+        } else {
+            throw new Error("Failed to create product");
+        }
+    } catch (error) {
+        toast.error("Failed to create product");
+        console.error("CREATE PRODUCT ERROR:", error);
+        return null;
+    } finally {
+        toast.dismiss(toastId);
+    }
+};
+
+export const getProductByUserID = async (token) => {
+    const toastId = toast.loading("Creating product...");
+    try {
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,  
+        };
+
+        
+        const response = await axios.get( GET_PRODUCT_BY_USERID, { headers });
+
+        console.log("Product res : ", response)
+        if (response?.data?.success) {
+            toast.success("Product created successfully");
+            return response.data.products;
         } else {
             throw new Error("Failed to create product");
         }
@@ -78,6 +105,8 @@ export const fetchAllProducts = async () => {
     const toastId = toast.loading("Loading products...");
     try {
         const response = await apiconnector("GET", GET_ALL_PRODUCTS);
+
+        console.log("res :: ", response)
         if (response?.data?.success) {
             toast.success("Products fetched successfully");
             return response.data.products; 
@@ -135,15 +164,24 @@ export const updateProductById = async (id, productData) => {
 };
 
 
-export const deleteProductById = async (id) => {
+export const deleteProductById = async (id, token) => {
     const toastId = toast.loading("Deleting product...");
     try {
-        const response = await apiconnector("DELETE", DELETE_BY_ID(id));
-        if (response?.data?.success) {
+        const response = await fetch(DELETE_BY_ID(id), {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
             toast.success("Product deleted successfully");
-            return response.data; 
+            return data;
         } else {
-            throw new Error("Failed to delete product");
+            throw new Error(data.message || "Failed to delete product");
         }
     } catch (error) {
         toast.error("Failed to delete product");

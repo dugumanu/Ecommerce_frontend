@@ -1,22 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import { FaTrash, FaPlus } from 'react-icons/fa';
-import { fetchAllProducts, deleteProductById } from '../../services/operations/product';
+import { FaPlus } from 'react-icons/fa';
+import { fetchAllProducts, deleteProductById, getProductByUserID } from '../../services/operations/product';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
-import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'; 
+import ProductTable from '../common/ProductTable';
 
 export default function ProductManagement() {
   const [products, setProducts] = useState([]);
-  const { token } = useSelector((state) => state.auth);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Fetch products from the backend
+  const { token, profileData } = useSelector((state) => state.auth);
+  const role = profileData?.role;
+
+  // Fetch products based on role
   const fetchProducts = async () => {
+    setLoading(true);
+    setError(null);
     try {
-      const response = await fetchAllProducts();
+      const response = role === 'admin' ? await fetchAllProducts() : await getProductByUserID(token);
       setProducts(response);
-    } catch (error) {
-      console.error('Error fetching products:', error);
+    } catch (err) {
+      setError('Error fetching products');
+      console.error('Error fetching products:', err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -28,9 +36,9 @@ export default function ProductManagement() {
   const handleDelete = async (id) => {
     try {
       await deleteProductById(id, token);
-      setProducts(products.filter((product) => product._id !== id)); // Remove deleted product from the list
-    } catch (error) {
-      console.error('Error deleting product:', error);
+      setProducts(products.filter((product) => product._id !== id));
+    } catch (err) {
+      console.error('Error deleting product:', err);
     }
   };
 
@@ -38,57 +46,26 @@ export default function ProductManagement() {
     <div className="p-5">
       <div className="flex justify-between items-center mb-5">
         <h2 className="text-2xl font-semibold">Product Management</h2>
-        <Link
-          to="/dashboard/newproduct"
-          className="bg-green text-white py-2 px-4 rounded-md flex items-center"
-        >
-          <FaPlus className="mr-2" /> Add New Product
+        <Link to="/dashboard/products/create" className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded flex items-center">
+          <FaPlus className="mr-2" /> Add Product
         </Link>
       </div>
 
-      {/* Make the table responsive using react-super-responsive-table */}
-      <Table className="min-w-full bg-white border">
-        <Thead>
-          <Tr>
-            <Th className="py-3 px-5 border-b text-left">Name</Th>
-            <Th className="py-3 px-5 border-b text-left">Category</Th>
-            <Th className="py-3 px-5 border-b text-left">Price</Th>
-            <Th className="py-3 px-5 border-b text-left">Image</Th>
-            <Th className="py-3 px-5 border-b text-left">Actions</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {products.map((product, index) => (
-            <Tr
-              key={product._id}
-              className={index % 2 === 0 ? 'bg-gray-100' : 'bg-white'} // Odd-Even row coloring
-            >
-              <Td className="py-3 px-5 border-b">{product.name}</Td>
-              <Td className="py-3 px-5 border-b">{product.categoryId?.name || 'N/A'}</Td>
-              <Td className="py-3 px-5 border-b">{product.price}</Td>
-              <Td className="py-3 px-5 border-b">
-                {product.images.length > 0 ? (
-                  <img
-                    src={product.images[0]}
-                    alt={product.name}
-                    className="h-10 w-10 object-cover"
-                  />
-                ) : (
-                  'No image'
-                )}
-              </Td>
-              <Td className="py-3 px-5 border-b">
-                <button
-                  onClick={() => handleDelete(product._id)}
-                  className="text-red-600 hover:text-red-800"
-                >
-                  <FaTrash />
-                </button>
-              </Td>
-            </Tr>
-          ))}
-        </Tbody>
-      </Table>
+      
+      {loading && <p>Loading products...</p>}
+
+      
+      {error && <p className="text-red-500">{error}</p>}
+
+      
+      {!loading && products.length === 0 && (
+        <p className="text-gray-500">No products found. Start adding some!</p>
+      )}
+
+      
+      {!loading && products.length > 0 && (
+        <ProductTable data={products} onDelete={handleDelete} />
+      )}
     </div>
   );
 }

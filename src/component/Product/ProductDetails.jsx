@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { IoArrowBackOutline } from "react-icons/io5";
 import { fetchProductById } from '../../services/operations/product';
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
@@ -24,6 +24,7 @@ export default function ProductDetail() {
 
   const { productData: product } = useSelector((state) => state.product);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { cart } = useSelector((state) => state.cart);
 
@@ -90,6 +91,16 @@ export default function ProductDetail() {
       dispatch(removeFromCart(productData));
     }
   };
+
+  const buyNowHandler = (id) => {
+    
+    navigate("/checkout", {
+      state: {
+        productId: id,
+        byCart : false
+      }
+    })
+  }
 
   return (
     <>
@@ -166,7 +177,8 @@ export default function ProductDetail() {
                   <CiShoppingCart style={{ width: "25px", height: "25px" }} /> Add to Cart
                 </button>
               )}
-              <Button content="Buy Now" icon="CiBookmark" />
+              <Button onClick={() => buyNowHandler(productId)} content="Buy Now" icon="CiBookmark" />
+
             </div>
           </div>
         </div>

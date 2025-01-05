@@ -20,7 +20,7 @@ export const loginUser = async (loginData,navigate,keptmelogin,dispatch) => {
                 
                 if (keptmelogin) {
                     localStorage.setItem("profileData", JSON.stringify(response?.data?.existingUser));  
-                    localStorage.setItem("token", JSON.stringify(response?.data?.token));  
+                    localStorage.setItem("token", response?.data?.token);  
                 }
                 
 

@@ -133,11 +133,18 @@ export default function SearchFilter() {
         className="p-2 w-full md:w-[15%] md:border-none focus:outline-none border border-gray-300 rounded"
       >
         <option value="">Select Category</option>
-        {categories.map((data) => (
-          <option key={data.name} value={data.name}>
-            {data.name}
-          </option>
-        ))}
+        {
+  categories && categories.length > 0 ? (
+    categories.map((data) => (
+      <option key={data.name} value={data.name}>
+        {data.name}
+      </option>
+    ))
+  ) : (
+    <p>No category available</p>
+  )
+}
+
       </select>
   
       <button

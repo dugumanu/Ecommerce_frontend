@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'; 
 import { fetchAllCategories } from '../../services/operations/category';
 import { FiMoreHorizontal } from "react-icons/fi";
-import { fetchProductByCategoryId, fetchForYouProducts } from '../../services/operations/product'; // Make sure this function is correctly defined
+import { fetchProductByCategoryId, fetchForYouProducts } from '../../services/operations/product'; 
 import { setProductData, setBanner, setCategory } from '../../slices/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi"; 
@@ -18,17 +18,18 @@ export default function Category() {
     const fetchCategory = async () => {
         try {
             const result = await fetchAllCategories();
-            setCategories(result);
+            setCategories(result || []); // Ensure fallback to an empty array if result is null or undefined
         } catch (error) {
             console.log("Error in fetching categories: ", error);
+            setCategories([]); // Set to an empty array if an error occurs
         }
     };
 
     const fetchProductDetails = async(selectedCategory) => {
         try {
             const response = await fetchProductByCategoryId(selectedCategory);
-            dispatch(setBanner(response[0].banner));
-            dispatch(setProductData(response[0].products));
+            dispatch(setBanner(response[0]?.banner || null)); // Safeguard for null or undefined response
+            dispatch(setProductData(response[0]?.products || [])); // Safeguard for null or undefined products
         } catch (error) {
             console.log("Error in fetching product by category: ", error);
         }
@@ -38,7 +39,7 @@ export default function Category() {
         try {
             const response = await fetchForYouProducts(); 
             dispatch(setBanner(null));
-            dispatch(setProductData(response));
+            dispatch(setProductData(response || [])); // Safeguard for null or undefined response
         } catch (error) {
             console.log("Error in fetching products for you: ", error);
         }
@@ -76,6 +77,7 @@ export default function Category() {
                     <p className="text-center text-white font-bold mt-2 md:text-base text-sm">Previous</p>
                 </div>
 
+                {/* "For You" section */}
                 <div 
                     className='flex flex-col justify-center items-center rounded-full w-[100px] h-[100px] cursor-pointer' 
                     onClick={() => {
@@ -94,47 +96,50 @@ export default function Category() {
                     {selectedCategory === 1 && <div className="arrow"></div>}
                 </div>
                 
-                {/* Displaying categories */}
+                {/* Displaying categories or fallback message */}
                 {
-                    categories.slice(currentIndex, currentIndex + categoriesPerPage).map((data) => (
-                        <div 
-                            className='flex flex-col justify-center items-center rounded-full w-[100px] h-[100px] cursor-pointer' 
-                            onClick={() => {
-    setSelectedCategory(data._id);
-    dispatch(setCategory(data.name));
-}}
-
-                            key={data.id}
-                        >  
-                            <div className={`flex justify-center items-center w-[80px] h-[80px] rounded-full p-4 ${selectedCategory === data._id ? "bg-green" : "bg-white"}`}>
-                                {data.image ? (
-                                    <img 
-                                        src={data.image} 
-                                        alt={data.name} 
-                                        className="object-cover w-full h-full rounded-full"
-                                    />
-                                ) : (
-                                    <div
-                                        style={{
-                                            width: '100%',
-                                            height: '100%',
-                                            backgroundColor: '#f0f0f0',
-                                            display: 'flex',
-                                            justifyContent: 'center',
-                                            alignItems: 'center',
-                                            color: '#333',
-                                            fontSize: '12px',
-                                            border: '1px solid #ccc',
-                                        }}
-                                    >
-                                        No Image Available
-                                    </div>
-                                )}
+                    categories.length > 0 ? (
+                        categories.slice(currentIndex, currentIndex + categoriesPerPage).map((data) => (
+                            <div 
+                                className='flex flex-col justify-center items-center rounded-full w-[100px] h-[100px] cursor-pointer' 
+                                onClick={() => {
+                                    setSelectedCategory(data._id);
+                                    dispatch(setCategory(data.name));
+                                }}
+                                key={data.id}
+                            >  
+                                <div className={`flex justify-center items-center w-[80px] h-[80px] rounded-full p-4 ${selectedCategory === data._id ? "bg-green" : "bg-white"}`}>
+                                    {data.image ? (
+                                        <img 
+                                            src={data.image} 
+                                            alt={data.name} 
+                                            className="object-cover w-full h-full rounded-full"
+                                        />
+                                    ) : (
+                                        <div
+                                            style={{
+                                                width: '100%',
+                                                height: '100%',
+                                                backgroundColor: '#f0f0f0',
+                                                display: 'flex',
+                                                justifyContent: 'center',
+                                                alignItems: 'center',
+                                                color: '#333',
+                                                fontSize: '12px',
+                                                border: '1px solid #ccc',
+                                            }}
+                                        >
+                                            No Image Available
+                                        </div>
+                                    )}
+                                </div>
+                                <p className='text-white font-bold text-center mt-2 md:text-base text-sm'>{data.name}</p>
+                                {selectedCategory === data._id && <div className="arrow"></div>}
                             </div>
-                            <p className='text-white font-bold text-center mt-2 md:text-base text-sm'>{data.name}</p>
-                            {selectedCategory === data._id && <div className="arrow"></div>}
-                        </div>
-                    ))
+                        ))
+                    ) : (
+                        <p className="text-center text-white font-bold">No categories available</p>
+                    )
                 }
 
                 {/* "Next" (More) button */}

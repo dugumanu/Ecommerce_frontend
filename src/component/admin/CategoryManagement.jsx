@@ -59,7 +59,7 @@ export default function CategoryManagement() {
           </Tr>
         </Thead>
         <Tbody>
-          {categories.map((category, index) => (
+          { categories && (  categories.map((category, index) => (
             <Tr
               key={category._id}
               className={index % 2 === 0 ? 'bg-gray-100' : 'bg-white'} // Odd-Even row coloring
@@ -97,7 +97,7 @@ export default function CategoryManagement() {
                 </button>
               </Td>
             </Tr>
-          ))}
+          )))}
         </Tbody>
       </Table>
     </div>

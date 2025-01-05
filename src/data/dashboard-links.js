@@ -82,7 +82,7 @@ export const sidebarLinks = [
     path: "/dashboard/products",
     icon: "FaBoxes",
     library: "fa",
-    userType: ["seller"]
+    userType: ["seller","admin"]
   },
   {
     id: 11,
@@ -90,7 +90,7 @@ export const sidebarLinks = [
     path: "/dashboard/products/create",
     icon: "FaPlusCircle",
     library: "fa",
-    userType: ["seller"]
+    userType: ["seller","admin"]
   },
   {
     id: 12,

@@ -16,6 +16,8 @@ import AddCategoryForm from '../component/admin/NewCategory';
 import CreateProduct from '../component/seller/CreateProduct';
 import ProductManagement from '../component/seller/productManagement';
 import NotFound from '../page/NotFound';
+import Checkout from '../page/Checkout';
+import MyOrder from '../page/MyOrder';
 
 
 export default function Router() {
@@ -29,6 +31,8 @@ export default function Router() {
     <Routes>
       {/* Protect Dashboard route */}
       <Route path="/dashboard/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
+      <Route path="/dashboard/order" element={<PrivateRoute><MyOrder /></PrivateRoute>} />
+
       
       <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>}>
         
@@ -41,7 +45,7 @@ export default function Router() {
         )}
 
         {/* Seller Role Routes */}
-        {profileData?.role === "seller" && (
+        {profileData?.role !== "customer" && (
           <>
             <Route path="/dashboard/products/create" element={<PrivateRoute><CreateProduct /></PrivateRoute>} />
             <Route path="/dashboard/products" element={<PrivateRoute><ProductManagement /></PrivateRoute>} />
@@ -57,6 +61,9 @@ export default function Router() {
       <Route path="/login" element={<Login />} />
       <Route path="/register/:role" element={<Signup />} />
       <Route path="*" element={<NotFound />} />
+      <Route path="/checkout" element={<PrivateRoute><Checkout /></PrivateRoute>} />
+      
+
 
     </Routes>
   );

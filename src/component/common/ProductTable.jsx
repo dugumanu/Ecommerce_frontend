@@ -3,6 +3,7 @@ import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import PriceComponent from './Price';
 
 const ProductTable = ({ data = [], onEdit, onDelete }) => {
   const navigate = useNavigate();
@@ -46,9 +47,9 @@ const ProductTable = ({ data = [], onEdit, onDelete }) => {
                   {item.name || 'Unknown Product'}
                 </Td>
                 <Td className="p-4 border">{item.categoryId?.name || 'N/A'}</Td>
-                <Td className="p-4 border">₹{item.originalPrice || 0}</Td>
+                <Td className="p-4 border"> <PriceComponent amount={item.originalPrice || 0}/> </Td>
                 <Td className="p-4 border">{item.discount || 0} %</Td>
-                <Td className="p-4 border">₹{item.price || 0}</Td>
+                <Td className="p-4 border"> <PriceComponent amount={item.price || 0} />  </Td>
                 <Td className="p-4 border">
                   {item.about ? item.about.substring(0, 50) + '...' : 'No description available'}
                 </Td>

@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setProductData as setproduct } from '../../slices/productSlice';
 import { searchAll } from '../../services/operations/search';
 import { addToCart, removeFromCart } from '../../slices/cartSlice';
+import PriceComponent from '../common/Price';
 
 export default function ProductDetail() {
   const [productData, setProductData] = useState(null);
@@ -154,13 +155,13 @@ export default function ProductDetail() {
             <p className='text-[16px]'>Rating: {productData?.rating}</p>
             <p className='font-bold text-[22px]'>{productData?.name}</p>
             <div className='flex flex-row items-start justify-start gap-6'>
-              <p className='md:text-[28px] text-[22px] font-bold text-green'>₹ {productData?.price}</p>
-              <p className='md:text-[22px] text-gray-500 text-[18px] line-through'>₹ {productData?.originalPrice}</p>
+              <p className='md:text-[28px] text-[22px] font-bold text-green'> <PriceComponent amount={productData?.price} />  </p>
+              <p className='md:text-[22px] text-gray-500 text-[18px] line-through'> <PriceComponent amount={productData?.originalPrice} /> </p>
             </div>
 
             {productData?.discount && (
               <div className="md:w-[40%] w-[80%] bg-red-500 text-white p-4 rounded-md flex justify-between items-center mb-4">
-                <p className='font-bold text-lg'>Discount: ₹{(productData.originalPrice - productData.price).toFixed(2)}</p>
+                <p className='font-bold text-lg'>Discount:   <PriceComponent amount={(productData.originalPrice - productData.price).toFixed(2)} /> </p>
                 <span className='bg-white text-red-500 rounded-full px-3 py-1 font-semibold'>
                   {productData.discount.toFixed(2)}% OFF
                 </span>

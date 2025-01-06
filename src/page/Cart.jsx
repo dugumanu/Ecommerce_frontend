@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom'; 
 import { removeFromCart } from '../slices/cartSlice';
+import PriceComponent from '../component/common/Price';
 
 export default function Cart() {
     const { cart } = useSelector((state) => state.cart);
@@ -106,8 +107,8 @@ export default function Cart() {
                                 </p>
                                 <p className="text-gray-500 text-sm">{item.categoryId?.name || "No Category"}</p>
                                 <p className="text-sm">
-                                    <span className="line-through text-gray-400 mr-2">₹{item.originalPrice}</span>
-                                    <span className="text-red-600 font-semibold">₹{item.price}</span>
+                                    <span className="line-through text-gray-400 mr-2"> <PriceComponent amount={item.originalPrice} />  </span>
+                                    <span className="text-red-600 font-semibold"> <PriceComponent amount={item.price} /> </span>
                                 </p>
                                 <p className="text-gray-500 text-xs">Discount: {item.discount.toFixed(2)}%</p>
                                 <p className="text-gray-500 text-xs">Seller: {item.sellerId?.fullName || "Unknown"}</p>

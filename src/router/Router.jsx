@@ -30,11 +30,13 @@ export default function Router() {
   return (
     <Routes>
       {/* Protect Dashboard route */}
-      <Route path="/dashboard/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
-      <Route path="/dashboard/order" element={<PrivateRoute><MyOrder /></PrivateRoute>} />
+    
 
       
       <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>}>
+
+      <Route path="/dashboard/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
+      <Route path="/dashboard/order" element={<PrivateRoute><MyOrder /></PrivateRoute>} />
         
         {/* Admin Role Routes */}
         {profileData?.role === "admin" && (

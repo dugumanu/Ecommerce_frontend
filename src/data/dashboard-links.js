@@ -25,6 +25,15 @@ export const sidebarLinks = [
     userType: ["all"]
   },
 
+  {
+    id: 12,
+    name: "My order",
+    path: "/dashboard/order",
+    icon: "FaShippingFast",
+    library: "fa",
+    userType: ["seller"]
+  },
+
   // Admin-specific links
   {
     id: 4,

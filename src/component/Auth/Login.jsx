@@ -8,7 +8,7 @@ function Login() {
     const [formData, setFormData] = useState({
         email: "",
         password: "",
-        keepLoggedIn: false,
+        keepLoggedIn: true,
     });
 
     const { profileData, token } = useSelector((state) => state.auth);

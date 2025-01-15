@@ -1,5 +1,6 @@
-// const BASE_URL = "http://localhost:4000/api/v1"
-const BASE_URL = "https://ecommerce-backend-lac-three.vercel.app/api/v1"
+const BASE_URL = "http://localhost:4000/api/v1"
+// const BASE_URL = "https://ecommerce-backend-lac-three.vercel.app/api/v1"
+// const BASE_URL = "https://gallybajar-backend.vercel.app/api/v1"
 
 
 export const authEndpoints = {
@@ -36,6 +37,8 @@ export const searchEndpoints = {
 export const orderEndpoints = {
     BUY_NOW :  BASE_URL + "/order/buyorder",
     MY_ORDER :  BASE_URL + "/order/myorder",
+    SELLER_ORDER :  BASE_URL + "/order/sellerorder",
+
 
 
 }

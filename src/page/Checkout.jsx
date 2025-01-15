@@ -56,10 +56,10 @@ export default function Checkout() {
     if (byCart) {
       setAllId(location.state?.productId || []);
     } else {
-      setAllId([productData._id]);
+      setAllId([productData?._id]);
     }
 
-    console.log("All Id", allId, location.state)
+    console.log("All Id", allId, productData?._id)
   }, [productId, byCart, location.state?.allId]);
 
   useEffect(() => {

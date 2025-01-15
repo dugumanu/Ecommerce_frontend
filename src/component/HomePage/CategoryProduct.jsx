@@ -9,7 +9,7 @@ export default function CategoryProduct() {
     const { banner, productData, selectedCategory } = useSelector((state) => state.product);
     const { cart } = useSelector((state) => state.cart);
 
-    const [visibleProducts, setVisibleProducts] = useState(6);
+    const [visibleProducts, setVisibleProducts] = useState(10);
 
     useEffect(() => {
         console.log("Product : ", productData);
@@ -56,7 +56,7 @@ export default function CategoryProduct() {
             <div className='flex mt-[3%] flex-col justify-center items-center'>
                 {productData ? (
                     <div className='flex gap-5 flex-col justify-center items-start'>
-                        <p className='font-bold text-[24px]'>Choose what you are looking for</p>
+                        <p className='font-bold md:text-left text-center text-[24px]'>Choose what you are looking for</p>
                         <div className='grid place-content-center grid-cols-2 md:grid-cols-3 gap-6 w-full'>
                             {productData.slice(0, visibleProducts).map((data) => (
                                 <div

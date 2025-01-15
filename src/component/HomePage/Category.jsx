@@ -67,11 +67,11 @@ export default function Category() {
     };
 
     return (
-        <div className='container mx-auto'>
-            <div className='flex flex-row p-5 gap-5 overflow-x-auto no-scrollbar items-center justify-center'>
+        <div className='container mx-auto px-4 sm:px-6 lg:px-8'>
+            <div className='flex flex-row p-5 gap-5 overflow-x-auto scroll-smooth no-scrollbar items-center justify-between md:justify-center'>
                 {/* "Previous" button */}
                 <div onClick={loadPrevious}>
-                    <div className="flex justify-center items-center w-[80px] h-[80px] rounded-full bg-white cursor-pointer">
+                    <div className="flex justify-center items-center w-[60px] h-[60px] md:w-[80px] md:h-[80px] rounded-full bg-white cursor-pointer">
                         <FiArrowLeft style={{ width: "30px", height: "30px" }} />
                     </div>
                     <p className="text-center text-white font-bold mt-2 md:text-base text-sm">Previous</p>
@@ -79,13 +79,13 @@ export default function Category() {
 
                 {/* "For You" section */}
                 <div 
-                    className='flex flex-col justify-center items-center rounded-full w-[100px] h-[100px] cursor-pointer' 
+                    className='flex flex-col justify-center items-center rounded-full w-[80px] h-[80px] md:w-[100px] md:h-[100px] cursor-pointer' 
                     onClick={() => {
                         setSelectedCategory(1);
                         dispatch(setCategory("For You"));
                     }} 
                 >  
-                    <div className={`flex justify-center items-center w-[80px] h-[80px] rounded-full p-4 ${selectedCategory === 1 ? "bg-green" : "bg-white"}`}>
+                    <div className={`flex justify-center items-center w-[60px] h-[60px] md:w-[80px] md:h-[80px] rounded-full p-4 ${selectedCategory === 1 ? "bg-green" : "bg-white"}`}>
                         <img 
                             src={FORYOU} 
                             alt='for you'
@@ -101,14 +101,14 @@ export default function Category() {
                     categories.length > 0 ? (
                         categories.slice(currentIndex, currentIndex + categoriesPerPage).map((data) => (
                             <div 
-                                className='flex flex-col justify-center items-center rounded-full w-[100px] h-[100px] cursor-pointer' 
+                                 className='flex flex-col justify-center items-center rounded-full w-[80px] h-[80px] md:w-[100px] md:h-[100px] cursor-pointer' 
                                 onClick={() => {
                                     setSelectedCategory(data._id);
                                     dispatch(setCategory(data.name));
                                 }}
                                 key={data.id}
                             >  
-                                <div className={`flex justify-center items-center w-[80px] h-[80px] rounded-full p-4 ${selectedCategory === data._id ? "bg-green" : "bg-white"}`}>
+                                <div className={`flex justify-center items-center w-[60px] h-[60px] md:w-[80px] md:h-[80px] rounded-full p-4 ${selectedCategory === data._id ? "bg-green" : "bg-white"}`}>
                                     {data.image ? (
                                         <img 
                                             src={data.image} 
@@ -144,7 +144,7 @@ export default function Category() {
 
                 {/* "Next" (More) button */}
                 <div onClick={loadNext}>
-                    <div className="flex justify-center items-center w-[80px] h-[80px] rounded-full bg-white cursor-pointer">
+                    <div className="flex justify-center items-center w-[60px] h-[60px] md:w-[80px] md:h-[80px] rounded-full bg-white cursor-pointer">
                         <FiArrowRight style={{ width: "30px", height: "30px" }} />
                     </div>
                     <p className="text-center text-white font-bold mt-2 md:text-base text-sm">More</p>

@@ -18,6 +18,8 @@ import ProductManagement from '../component/seller/productManagement';
 import NotFound from '../page/NotFound';
 import Checkout from '../page/Checkout';
 import MyOrder from '../page/MyOrder';
+import SellerOrder from '../component/seller/SellerOrder';
+import DashBoardCart from '../component/common/DashBoardCart';
 
 
 export default function Router() {
@@ -37,6 +39,8 @@ export default function Router() {
 
       <Route path="/dashboard/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
       <Route path="/dashboard/order" element={<PrivateRoute><MyOrder /></PrivateRoute>} />
+      <Route path="/dashboard/cart" element={<PrivateRoute><DashBoardCart /></PrivateRoute>} />
+
         
         {/* Admin Role Routes */}
         {profileData?.role === "admin" && (
@@ -53,6 +57,13 @@ export default function Router() {
             <Route path="/dashboard/products" element={<PrivateRoute><ProductManagement /></PrivateRoute>} />
           </>
         )}
+
+        {profileData?.role !== "seller" || profileData?.role !== "admin" && (
+          <>
+          <Route path="/dashboard/order-tracking" element={<PrivateRoute><SellerOrder /></PrivateRoute>} />
+          </>
+        )}
+        
       </Route>
 
       {/* Other routes */}

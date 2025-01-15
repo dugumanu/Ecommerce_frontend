@@ -1,15 +1,21 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import PriceComponent from "../common/Price";
+import { useSelector } from "react-redux";
+import OrderStatusStep from "../common/AdminAndSeller/OrderStatusStep";
 
 export default function OrderList({ orders }) {
   const navigate = useNavigate();
 
   const handleProductClick = (product) => {
-    const productCategory = product.categoryId.name;
-    const productName = product.name;
+    const productCategory = product?.categoryId?.name;
+    const productName = product?.name;
     navigate(`/product/${productCategory}/${productName}/${product._id}`);
   };
+
+  const {profileData} = useSelector((state) => state.auth)
+
+  const role = profileData?.role
 
   return (
     <div className="min-h-screen bg-gray-100 py-6 flex flex-col items-center">
@@ -36,19 +42,19 @@ export default function OrderList({ orders }) {
               onClick={() => handleProductClick(order.productId)}
             >
               <img
-                src={order.productId.image[0]}
-                alt={order.productId.name}
+                src={order?.productId?.image[0]}
+                alt={order?.productId?.name}
                 className="w-20 h-20 object-cover rounded-md border border-gray-200"
               />
               <div>
                 <h3 className="font-semibold text-gray-800 hover:underline">
-                  {order.productId.name}
+                  {order?.productId?.name}
                 </h3>
                 <p className="text-sm text-gray-600">
-                  <PriceComponent amount={order.productId.price} />   ({order.quantity} item)
+                  <PriceComponent amount={order?.productId?.price} />   ({order?.quantity} item)
                 </p>
                 <p className="text-sm text-gray-500">
-                  Category: {order.productId.categoryId.name}
+                  Category: {order?.productId?.categoryId?.name}
                 </p>
               </div>
             </div>
@@ -76,10 +82,20 @@ export default function OrderList({ orders }) {
               >
                 Payment Status: {order.paymentStatus?.paymentStatus || "N/A"}
               </p>
+
+              
             </div>
+            {
+        role !== "customer" && (
+          <OrderStatusStep orderId = {order?._id} paymentId = {order?.paymentStatus?._id} currentStatus={order?.status} />
+        )
+      }
           </div>
         ))}
+
+        
       </div>
+    
     </div>
   );
 }

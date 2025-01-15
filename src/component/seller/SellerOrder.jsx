@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { getMyOrder } from '../services/operations/order';
 import { useSelector } from 'react-redux';
-import OrderList from '../component/MyOrder/OrderList';
+import OrderList from '../MyOrder/OrderList';
+import { getSellerOrder } from '../../services/operations/order';
 
-export default function MyOrder() {
+
+export default function SellerOrder() {
   const [loading, setLoading] = useState(false);
   const [orderData, setOrderData] = useState(null);
   const { token } = useSelector((state) => state.auth);
@@ -11,9 +12,9 @@ export default function MyOrder() {
   const fetchOrder = async () => {
     try {
       setLoading(true);
-      const response = await getMyOrder(token);
+      const response = await getSellerOrder(token);
       if (response?.success) {
-        setOrderData(response.order);
+        setOrderData(response?.order);
       } else {
         console.error("Failed to fetch orders:", response?.message);
       }

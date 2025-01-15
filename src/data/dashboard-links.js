@@ -35,14 +35,14 @@ export const sidebarLinks = [
   },
 
   // Admin-specific links
-  {
-    id: 4,
-    name: "Dashboard",
-    path: "/dashboard",
-    icon: "FaTachometerAlt",
-    library: "fa",
-    userType: ["admin"]
-  },
+  // {
+  //   id: 4,
+  //   name: "Dashboard",
+  //   path: "/dashboard",
+  //   icon: "FaTachometerAlt",
+  //   library: "fa",
+  //   userType: ["admin"]
+  // },
   {
     id: 5,
     name: "Category Management",
@@ -51,38 +51,38 @@ export const sidebarLinks = [
     library: "fa",
     userType: ["admin"]
   },
-  {
-    id: 6,
-    name: "User Management",
-    path: "/dashboard/users",
-    icon: "FaUsers",
-    library: "fa",
-    userType: ["admin"]
-  },
+  // {
+  //   id: 6,
+  //   name: "User Management",
+  //   path: "/dashboard/users",
+  //   icon: "FaUsers",
+  //   library: "fa",
+  //   userType: ["admin"]
+  // },
   {
     id: 7,
     name: "Order Management",
-    path: "/dashboard/orders",
+    path: "/dashboard/order-tracking",
     icon: "FaClipboardList",
     library: "fa",
     userType: ["admin"]
   },
-  {
-    id: 8,
-    name: "Reports",
-    path: "/dashboard/reports",
-    icon: "VscGraph",
-    library: "vsc",
-    userType: ["admin"]
-  },
-  {
-    id: 9,
-    name: "Settings",
-    path: "/dashboard/settings",
-    icon: "FaCog",
-    library: "fa",
-    userType: ["admin"]
-  },
+  // {
+  //   id: 8,
+  //   name: "Reports",
+  //   path: "/dashboard/reports",
+  //   icon: "VscGraph",
+  //   library: "vsc",
+  //   userType: ["admin"]
+  // },
+  // {
+  //   id: 9,
+  //   name: "Settings",
+  //   path: "/dashboard/settings",
+  //   icon: "FaCog",
+  //   library: "fa",
+  //   userType: ["admin"]
+  // },
 
   // Seller-specific links
   {
@@ -109,24 +109,24 @@ export const sidebarLinks = [
     library: "fa",
     userType: ["seller"]
   },
-  {
-    id: 13,
-    name: "Shop Profile",
-    path: "/dashboard/shop",
-    icon: "FaStore",
-    library: "fa",
-    userType: ["seller"]
-  },
+  // {
+  //   id: 13,
+  //   name: "Shop Profile",
+  //   path: "/dashboard/shop",
+  //   icon: "FaStore",
+  //   library: "fa",
+  //   userType: ["seller"]
+  // },
 
   // Customer-specific links
-  {
-    id: 14,
-    name: "Browse Products",
-    path: "/products",
-    icon: "FaShoppingCart",
-    library: "fa",
-    userType: ["customer"]
-  },
+  // {
+  //   id: 14,
+  //   name: "Browse Products",
+  //   path: "/products",
+  //   icon: "FaShoppingCart",
+  //   library: "fa",
+  //   userType: ["customer"]
+  // },
   {
     id: 15,
     name: "Cart",
@@ -138,27 +138,27 @@ export const sidebarLinks = [
   {
     id: 16,
     name: "Purchase History",
-    path: "/dashboard/purchase-history",
+    path: "/dashboard/order",
     icon: "FaHistory",
     library: "fa",
     userType: ["customer"]
   },
 
   // Links available to both admin and seller
-  {
-    id: 17,
-    name: "Analytics",
-    path: "/dashboard/analytics",
-    icon: "FaChartLine",
-    library: "fa",
-    userType: ["admin", "seller"]
-  },
-  {
-    id: 18,
-    name: "Order Summary",
-    path: "/dashboard/order-summary",
-    icon: "CiTrophy",
-    library: "ci",
-    userType: ["admin", "seller"]
-  }
+  // {
+  //   id: 17,
+  //   name: "Analytics",
+  //   path: "/dashboard/analytics",
+  //   icon: "FaChartLine",
+  //   library: "fa",
+  //   userType: ["admin", "seller"]
+  // },
+  // {
+  //   id: 18,
+  //   name: "Order Summary",
+  //   path: "/dashboard/order-summary",
+  //   icon: "CiTrophy",
+  //   library: "ci",
+  //   userType: ["admin", "seller"]
+  // }
 ];

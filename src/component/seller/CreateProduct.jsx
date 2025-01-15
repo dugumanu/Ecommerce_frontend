@@ -12,7 +12,7 @@ export default function CreateProduct() {
     about: '',
     originalPrice: '',
     price: '',
-    state: '',
+    state: 'Bihar',
     city: '',
     images: [],
     sellerId: profileData._id,
@@ -159,6 +159,7 @@ export default function CreateProduct() {
           <div>
             <label htmlFor="state" className="block text-lg font-medium text-gray-700">State</label>
             <input
+            disabled
               type="text"
               id="state"
               name="state"

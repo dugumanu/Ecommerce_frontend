@@ -101,11 +101,13 @@ export default function SearchFilter() {
         className="p-2 w-full md:w-[15%] focus:outline-none md:border-none border border-gray-300 rounded"
       >
         <option value="">Select State</option>
-        {allStates.map((state) => (
+        <option value="Bihar">Bihar</option>
+
+        {/* {allStates.map((state) => (
           <option key={state.isoCode} value={state.name}>
             {state.name}
           </option>
-        ))}
+        ))} */}
       </select>
 
       <div className='border-[1px] md:block hidden h-[30px]  mt-[1%] border-gray-400 '  ></div>
@@ -117,11 +119,13 @@ export default function SearchFilter() {
         className="p-2 w-full md:w-[15%] md:border-none focus:outline-none border border-gray-300 rounded"
       >
         <option value="">Select City</option>
-        {cities.map((city) => (
+        <option value="Siwan">Siwan</option>
+
+        {/* {cities.map((city) => (
           <option key={city.name} value={city.name}>
             {city.name}
           </option>
-        ))}
+        ))} */}
       </select>
 
       <div className='border-[1px] md:block hidden h-[30px]  mt-[1%] border-gray-400 '  ></div>

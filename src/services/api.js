@@ -38,6 +38,8 @@ export const orderEndpoints = {
     BUY_NOW :  BASE_URL + "/order/buyorder",
     MY_ORDER :  BASE_URL + "/order/myorder",
     SELLER_ORDER :  BASE_URL + "/order/sellerorder",
+    CHANGE_ORDER_STATUS :  BASE_URL + "/order/changeorderstatus",
+
 
 
 

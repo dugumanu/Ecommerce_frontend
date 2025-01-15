@@ -85,11 +85,11 @@ export default function OrderList({ orders }) {
 
               
             </div>
-            {
-        role !== "customer" && (
+            
+      
           <OrderStatusStep orderId = {order?._id} paymentId = {order?.paymentStatus?._id} currentStatus={order?.status} />
-        )
-      }
+        
+      
           </div>
         ))}
 

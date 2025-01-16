@@ -143,9 +143,9 @@ export default function Navbar() {
           <NavLink to="/order-on-demand" className={({ isActive }) => isActive ? "text-green font-semibold" : "text-gray-400 font-semibold hover:text-green-500"}>
             ORDER ON DEMAND
           </NavLink>
-          <NavLink to="/category" className={({ isActive }) => isActive ? "text-green font-semibold" : "text-gray-400 font-semibold hover:text-green-500"}>
+          {/* <NavLink to="/category" className={({ isActive }) => isActive ? "text-green font-semibold" : "text-gray-400 font-semibold hover:text-green-500"}>
             CATEGORY
-          </NavLink>
+          </NavLink> */}
 
           {/* Search Form */}
           <form onSubmit={handleSearchSubmit} className='w-[25%] flex flex-row justify-center items-center border-2 gap-2 rounded-lg border-gray-300 px-2 py-1'>
@@ -257,7 +257,7 @@ export default function Navbar() {
           </div>
           <NavLink to="/" className="py-2 hover:text-green" onClick={toggleMenu}>HOME</NavLink>
           <NavLink to="/order-on-demand" className="py-2 hover:text-green" onClick={toggleMenu}>ORDER ON DEMAND</NavLink>
-          <NavLink to="/category" className="py-2 hover:text-green" onClick={toggleMenu}>CATEGORY</NavLink>
+          {/* <NavLink to="/category" className="py-2 hover:text-green" onClick={toggleMenu}>CATEGORY</NavLink> */}
         
           
           

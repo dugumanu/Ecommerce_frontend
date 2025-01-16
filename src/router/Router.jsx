@@ -20,6 +20,8 @@ import Checkout from '../page/Checkout';
 import MyOrder from '../page/MyOrder';
 import SellerOrder from '../component/seller/SellerOrder';
 import DashBoardCart from '../component/common/DashBoardCart';
+import DefaultDashboard from '../component/core/dashboard/DefaultDashboard';
+import OrderOnDemand from '../page/OrderOnDemand';
 
 
 export default function Router() {
@@ -36,6 +38,7 @@ export default function Router() {
 
       
       <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>}>
+      <Route index element={<DefaultDashboard/>} />
 
       <Route path="/dashboard/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
       <Route path="/dashboard/order" element={<PrivateRoute><MyOrder /></PrivateRoute>} />
@@ -58,7 +61,7 @@ export default function Router() {
           </>
         )}
 
-        {profileData?.role !== "seller" || profileData?.role !== "admin" && (
+        {profileData?.role === "seller" || profileData?.role === "admin" && (
           <>
           <Route path="/dashboard/order-tracking" element={<PrivateRoute><SellerOrder /></PrivateRoute>} />
           </>
@@ -75,6 +78,7 @@ export default function Router() {
       <Route path="/register/:role" element={<Signup />} />
       <Route path="*" element={<NotFound />} />
       <Route path="/checkout" element={<PrivateRoute><Checkout /></PrivateRoute>} />
+      <Route path="/order-on-demand" element={<OrderOnDemand/>} />
       
 
 

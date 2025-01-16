@@ -5,7 +5,7 @@ import PriceComponent from '../component/common/Price';
 import { useDispatch, useSelector } from 'react-redux';
 import { buy } from '../services/operations/order';
 import { all } from 'axios';
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 
 export default function Checkout() {
   const location = useLocation();

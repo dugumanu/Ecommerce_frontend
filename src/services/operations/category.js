@@ -1,6 +1,6 @@
 
 
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 import { categoryEndpoints } from '../api';
 import { apiconnector } from '../apiconnector';
 import axios from 'axios';

@@ -61,7 +61,12 @@ export default function OrderStatusStep({ orderId, paymentId, currentStatus = "p
             <div className="flex flex-col items-center">
               <button
                 className={`rounded-full md:w-12 md:h-12 w-6 h-6 flex items-center justify-center text-sm font-bold cursor-pointer
-                  ${index <= currentStepIndex ? "bg-green text-white" : "bg-gray-300 text-black"}
+                ${index <= currentStepIndex 
+  ? currentStatus === "cancelled" 
+    ? "bg-red-500 text-white" 
+    : "bg-green text-white" 
+  : "bg-gray-300 text-black"}
+
                   ${
                     role === "customer" && step.name !== "Cancelled"
                       ? "cursor-not-allowed opacity-50"
@@ -73,9 +78,11 @@ export default function OrderStatusStep({ orderId, paymentId, currentStatus = "p
                 {index + 1}
               </button>
               <div
-                className={`mt-2 text-xs ${
-                  index <= currentStepIndex ? "text-green font-semibold" : "text-gray-500"
-                }`}
+                className={`mt-2 text-xs ${index <= currentStepIndex 
+  ? currentStatus === "cancelled" 
+    ? "text-red-500 font-bold" 
+    : "text-green font-bold" 
+  : "text-black font-bold"}`}
               >
                 {step.name}
               </div>

@@ -14,7 +14,7 @@ export const sidebarLinks = [
     path: "/dashboard/profile",
     icon: "FaUserCircle",
     library: "fa",
-    userType: ["all"]
+    userType: ["customer", "admin", "seller"]
   },
   {
     id: 3,
@@ -78,10 +78,10 @@ export const sidebarLinks = [
   // {
   //   id: 9,
   //   name: "Settings",
-  //   path: "/dashboard/settings",
+  //   path: "/dashboard/profile",
   //   icon: "FaCog",
   //   library: "fa",
-  //   userType: ["admin"]
+  //   userType: ["all"]
   // },
 
   // Seller-specific links

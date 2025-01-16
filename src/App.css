@@ -30,10 +30,13 @@
 .bm-cross-button {
   height: 28px;
   width: 28px;
+  position: absolute;
+  left: 290px;
+  bottom: 80px;
 }
 
 .bm-cross {
-  background: #030303;
+  background: #fff;
 }
 
 

@@ -1,4 +1,4 @@
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 import { apiconnector } from '../apiconnector';
 import { orderEndpoints } from '../api';
 import axios from 'axios';

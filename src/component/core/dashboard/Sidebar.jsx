@@ -21,7 +21,7 @@ export default function Sidebar() {
             ${isActive ? "bg-green text-white font-semibold" : "text-gray-400 hover:text-green hover:bg-gray-800"}`}
         >
           <LuLayoutDashboard style={{width:"22px", height:"22px"}} />
-          <span className="ml-3"> { role === "customer" ? "Profile" : "Dashboard" } </span>
+          <span className="ml-3"> { role === "customer" ? "Dashboard" : "Dashboard" } </span>
         </Link>
 
         {sidebarLinks

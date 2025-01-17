@@ -23,7 +23,7 @@ export default function SearchFilter() {
       const result = await fetchAllCategories();
       setCategories(result);
     } catch (error) {
-      console.log("Error in fetching categories: ", error);
+      //console.log("Error in fetching categories: ", error);
     }
   };
 
@@ -62,7 +62,7 @@ export default function SearchFilter() {
         behavior: "smooth",
       });
     } catch (error) {
-      console.log('Error in search filter ', error);
+      //console.log('Error in search filter ', error);
     }
   };
 

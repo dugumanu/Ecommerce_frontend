@@ -17,7 +17,7 @@ export const createProduct = async (productData, token) => {
         
         const response = await axios.post(CREATE_PRODUCT, productData, { headers });
 
-        console.log("Product res : ", response)
+        //console.log("Product res : ", response)
         if (response?.data?.success) {
             toast.success("Product created successfully");
             return response.data.product;
@@ -26,7 +26,7 @@ export const createProduct = async (productData, token) => {
         }
     } catch (error) {
         toast.error("Failed to create product");
-        console.error("CREATE PRODUCT ERROR:", error);
+        // console.error("CREATE PRODUCT ERROR:", error);
         return null;
     } finally {
         toast.dismiss(toastId);
@@ -44,7 +44,7 @@ export const getProductByUserID = async (token) => {
         
         const response = await axios.get( GET_PRODUCT_BY_USERID, { headers });
 
-        console.log("Product res : ", response)
+        //console.log("Product res : ", response)
         if (response?.data?.success) {
             toast.success("Product created successfully");
             return response.data.products;
@@ -52,8 +52,8 @@ export const getProductByUserID = async (token) => {
             throw new Error("Failed to create product");
         }
     } catch (error) {
-        toast.error("Failed to create product");
-        console.error("CREATE PRODUCT ERROR:", error);
+        // toast.error("Failed to create product");
+        // console.error("CREATE PRODUCT ERROR:", error);
         return null;
     } finally {
         toast.dismiss(toastId);
@@ -66,14 +66,14 @@ export const fetchProductById = async (id) => {
     try {
         const response = await apiconnector("GET", GET_PRODUCT_BY_ID(id));
         if (response?.data?.success) {
-            toast.success("Product fetched successfully");
+            // toast.success("Product fetched successfully");
             return response.data.product;
         } else {
             throw new Error("Product not found");
         }
     } catch (error) {
-        toast.error("Failed to fetch product");
-        console.error("FETCH PRODUCT ERROR:", error);
+        // toast.error("Failed to fetch product");
+        // console.error("FETCH PRODUCT ERROR:", error);
         return null;
     } finally {
         toast.dismiss(toastId);
@@ -84,16 +84,16 @@ export const fetchProductByCategoryId = async (id) => {
     const toastId = toast.loading("Loading product...");
     try {
         const response = await apiconnector("GET", GET_PRODUCT_BY_CATEGORYID(id));
-        console.log("RESPONSE FROM PRODUCT BY CATEGORY : ", response)
+        //console.log("RESPONSE FROM PRODUCT BY CATEGORY : ", response)
         if (response?.data?.success) {
-            toast.success("Product fetched successfully");
+            // toast.success("Product fetched successfully");
             return response.data.products;
         } else {
             throw new Error("Product not found");
         }
     } catch (error) {
-        toast.error("Failed to fetch product");
-        console.error("FETCH PRODUCT ERROR:", error);
+        // toast.error("Failed to fetch product");
+        // console.error("FETCH PRODUCT ERROR:", error);
         return null;
     } finally {
         toast.dismiss(toastId);
@@ -106,16 +106,16 @@ export const fetchAllProducts = async () => {
     try {
         const response = await apiconnector("GET", GET_ALL_PRODUCTS);
 
-        console.log("res :: ", response)
+        //console.log("res :: ", response)
         if (response?.data?.success) {
-            toast.success("Products fetched successfully");
+            // toast.success("Products fetched successfully");
             return response.data.products; 
         } else {
             throw new Error("Failed to fetch products");
         }
     } catch (error) {
-        toast.error("Failed to fetch products");
-        console.error("FETCH ALL PRODUCTS ERROR:", error);
+        // toast.error("Failed to fetch products");
+        // console.error("FETCH ALL PRODUCTS ERROR:", error);
         return null;
     } finally {
         toast.dismiss(toastId);
@@ -127,15 +127,15 @@ export const fetchForYouProducts = async () => {
     try {
         const response = await apiconnector("GET", FOR_YOU);
         if (response?.data?.success) {
-            toast.success("Products fetched successfully");
-            console.log("FOR YOU " ,response.data )
+            // toast.success("Products fetched successfully");
+            //console.log("FOR YOU " ,response.data )
             return response.data.products; 
         } else {
             throw new Error("Failed to fetch products");
         }
     } catch (error) {
-        toast.error("Failed to fetch products");
-        console.error("FETCH ALL PRODUCTS ERROR:", error);
+        // toast.error("Failed to fetch products");
+        // console.error("FETCH ALL PRODUCTS ERROR:", error);
         return null;
     } finally {
         toast.dismiss(toastId);
@@ -185,7 +185,7 @@ export const deleteProductById = async (id, token) => {
         }
     } catch (error) {
         toast.error("Failed to delete product");
-        console.error("DELETE PRODUCT ERROR:", error);
+        // console.error("DELETE PRODUCT ERROR:", error);
         return null;
     } finally {
         toast.dismiss(toastId);

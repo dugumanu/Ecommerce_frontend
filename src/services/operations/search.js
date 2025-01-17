@@ -8,10 +8,10 @@ import { searchEndpoints,  } from '../api';
 
 export const searchByFilter = async ( formData) => {
     const toastId = toast.loading("Searching...");
-    console.log("FormData : ", formData)
+    //console.log("FormData : ", formData)
     try {
         const response = await apiconnector("POST", searchEndpoints.SEARCH_BY_FILTER(formData.query), formData);
-        console.log("API Response: ", response);
+        //console.log("API Response: ", response);
         if (response?.data?.success) {
             toast.success("Search completed successfully");
             return response.data.products; 
@@ -19,8 +19,8 @@ export const searchByFilter = async ( formData) => {
             throw new Error("Search failed");
         }
     } catch (error) {
-        toast.error("Failed to search");
-        console.error("SEARCH ERROR:", error);
+        // toast.error("Failed to search");
+        // console.error("SEARCH ERROR:", error);
         return null;
     } finally {
         toast.dismiss(toastId);
@@ -39,8 +39,8 @@ export const searchAll = async (query) => {
             throw new Error("Search failed");
         }
     } catch (error) {
-        toast.error("Failed to search");
-        console.error("SEARCH ERROR:", error);
+        // toast.error("Failed to search");
+        // console.error("SEARCH ERROR:", error);
         return null;
     } finally {
         toast.dismiss(toastId);

@@ -28,7 +28,7 @@ export default function Router() {
   const { profileData } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    console.log("profileData ", profileData)
+    //console.log("profileData ", profileData)
   }, []);
 
   return (

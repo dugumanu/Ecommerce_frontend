@@ -59,7 +59,7 @@ export default function Checkout() {
       setAllId([productData?._id]);
     }
 
-    console.log("All Id", allId, productData?._id)
+    //console.log("All Id", allId, productData?._id)
   }, [productId, byCart, location.state?.allId]);
 
   useEffect(() => {
@@ -82,7 +82,7 @@ export default function Checkout() {
       paymentMethod,
     };
   
-    console.log('Order Data:', orderData);
+    //console.log('Order Data:', orderData);
     setLoading(true); 
   
     try {

@@ -12,7 +12,7 @@ export default function CategoryProduct() {
     const [visibleProducts, setVisibleProducts] = useState(10);
 
     useEffect(() => {
-        console.log("Product : ", productData);
+        //console.log("Product : ", productData);
     }, [productData]);
 
     const placeholderImage = "https://via.placeholder.com/150";
@@ -27,10 +27,10 @@ export default function CategoryProduct() {
         const isProductInCart = cart.find(item => item._id === data._id);
         if (isProductInCart) {
             dispatch(removeFromCart(data));
-            console.log('Removed from cart: ', data);
+            //console.log('Removed from cart: ', data);
         } else {
             dispatch(addToCart(data));
-            console.log('Added to cart: ', data);
+            //console.log('Added to cart: ', data);
         }
     }
 
@@ -60,7 +60,7 @@ export default function CategoryProduct() {
                         <div className='grid place-content-center grid-cols-2 md:grid-cols-3 gap-6 w-full'>
                             {productData.slice(0, visibleProducts).map((data) => (
                                 <div
-                                    className='flex flex-col w-[200px] md:w-[250px] p-4 border rounded-lg shadow-md bg-white'
+                                    className='flex flex-col w-[180px] md:w-[250px] p-2 md:p-4 border rounded-lg shadow-md bg-white'
                                     key={data?._id}
                                 >
                                     {/* Image Section */}

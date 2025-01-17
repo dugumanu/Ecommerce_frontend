@@ -13,7 +13,7 @@ export const loginUser = async (loginData,navigate,keptmelogin,dispatch) => {
 
         if (response?.data?.success) {
             toast.success("Logged in successfully");
-            console.log("Data : ", response?.data?.existingUser)
+            //console.log("Data : ", response?.data?.existingUser)
             dispatch(setToken(response?.data?.token))
             dispatch(setProfileData(response?.data?.existingUser))
             if(keptmelogin) {
@@ -46,7 +46,7 @@ export const signupUser = async (signupData,navigate) => {
 
     try {
         const response = await apiconnector("POST", SIGNUP_API, signupData);
-        console.log("response", response);
+        //console.log("response", response);
 
         if (response?.data?.success) {
             toast.success("Signed up successfully");

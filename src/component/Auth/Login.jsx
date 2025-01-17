@@ -29,9 +29,9 @@ function Login() {
   
     const handleSubmit = async (e) => {
       e.preventDefault();
-      console.log("Form data submitted:", formData);
+      //console.log("Form data submitted:", formData);
       await loginUser(formData, navigate, formData.keepLoggedIn, dispatch);
-      console.log("Profile Data ", profileData)
+      //console.log("Profile Data ", profileData)
       navigate(from, { replace: true });  
     };
 

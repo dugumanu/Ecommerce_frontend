@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { socialData } from '../../data/data';
+
 
 // Import images
 const call = require("../../assets/call.png");
@@ -20,56 +22,56 @@ function ShortcutBar() {
   if (!isHomePage) return null; // Hide on pages other than home
 
   return (
-    <div className="fixed right-4 md:right-8 top-1/3 flex flex-col gap-4 z-50">
+    <div className="fixed right-2 md:right-4 md:top-1/3 top-[27%] flex flex-col gap-2 z-50">
       {/* Call Shortcut */}
       <a
-        href="tel:+1234567890"
-        className="flex items-center justify-center w-14 h-14 bg-white rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-xl"
+        href={`tel:${socialData.phone }`}
+        className="flex items-center justify-center md:w-12 md:h-12 w-10 h-10 bg-white rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-xl"
         title="Call"
       >
-        <img src={call} alt="Call" className="w-8 h-8" />
+        <img src={call} alt="Call" className="md:w-8 md:h-8 w-6 h-6 " />
       </a>
 
       {/* WhatsApp Shortcut */}
       <a
-        href="https://wa.me/1234567890"
-        className="flex items-center justify-center w-14 h-14 bg-white rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-xl"
+        href={`https://wa.me/${socialData.whatsapp}`}
+        className="flex items-center justify-center md:w-12 md:h-12 w-10 h-10 bg-white rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-xl"
         target="_blank"
         rel="noopener noreferrer"
         title="WhatsApp"
       >
-        <img src={whatsapp} alt="WhatsApp" className="w-8 h-8" />
+        <img src={whatsapp} alt="WhatsApp" className="md:w-8 md:h-8 w-6 h-6 " />
       </a>
 
       {/* Twitter Shortcut */}
       <a
-        href="https://twitter.com/yourhandle"
-        className="flex items-center justify-center w-14 h-14 bg-white rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-xl"
+        href={`${socialData.x}`}
+        className="flex items-center justify-center md:w-12 md:h-12 w-10 h-10 bg-white rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-xl"
         target="_blank"
         rel="noopener noreferrer"
         title="Twitter"
       >
-        <img src={twitter} alt="Twitter" className="w-8 h-8" />
+        <img src={twitter} alt="Twitter" className="md:w-8 md:h-8 w-6 h-6 " />
       </a>
 
       {/* Instagram Shortcut */}
       <a
-        href="https://instagram.com/yourhandle"
-        className="flex items-center justify-center w-14 h-14 bg-white rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-xl"
+        href={`${socialData.insta}`}
+        className="flex items-center justify-center md:w-12 md:h-12 w-10 h-10 bg-white rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-xl"
         target="_blank"
         rel="noopener noreferrer"
         title="Instagram"
       >
-        <img src={instagram} alt="Instagram" className="w-8 h-8" />
+        <img src={instagram} alt="Instagram" className="md:w-8 md:h-8 w-6 h-6 " />
       </a>
 
       {/* Email Shortcut */}
       <a
-        href="mailto:your-email@example.com"
-        className="flex items-center justify-center w-14 h-14 bg-white rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-xl"
+        href={`mailto:${socialData.mail}`}
+        className="flex items-center justify-center md:w-12 md:h-12 w-10 h-10 bg-white rounded-full shadow-lg transition-transform transform hover:scale-110 hover:shadow-xl"
         title="Email"
       >
-        <img src={email} alt="Email" className="w-8 h-8" />
+        <img src={email} alt="Email" className="md:w-8 md:h-8 w-6 h-6 " />
       </a>
     </div>
   );

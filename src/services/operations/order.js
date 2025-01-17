@@ -14,7 +14,7 @@ export const buy = async (orderData, token) => {
 
     const response = await axios.post(BUY_NOW, orderData, { headers });
 
-    console.log('buy res:', response);
+    //console.log('buy res:', response);
     if (response?.data?.success) {
       toast.success('Product ordered successfully');
       return response.data;
@@ -23,7 +23,7 @@ export const buy = async (orderData, token) => {
     }
   } catch (error) {
     toast.error('Failed to order product');
-    console.error('ORDER PRODUCT ERROR:', error);
+    // console.error('ORDER PRODUCT ERROR:', error);
     return null;
   } finally {
     toast.dismiss(toastId);
@@ -42,16 +42,16 @@ export const getMyOrder = async (token) => {
       
       const response = await axios.get( MY_ORDER, { headers });
 
-      console.log("Order res : ", response)
+      //console.log("Order res : ", response)
       if (response?.data?.success) {
-          toast.success("Order Fetched successfully");
+          // toast.success("Order Fetched successfully");
           return response?.data;
       } else {
           throw new Error("Failed to fetch order");
       }
   } catch (error) {
-      toast.error("Failed to fatched order");
-      console.error("fetched my order ERROR:", error);
+      // toast.error("Failed to fatched order");
+      // console.error("fetched my order ERROR:", error);
       return null;
   } finally {
       toast.dismiss(toastId);
@@ -69,16 +69,16 @@ export const getSellerOrder = async (token) => {
       
       const response = await axios.get( SELLER_ORDER, { headers });
 
-      console.log("Order res : ", response)
+      //console.log("Order res : ", response)
       if (response?.data?.success) {
-          toast.success("Order Fetched successfully");
+          // toast.success("Order Fetched successfully");
           return response.data;
       } else {
-          throw new Error("Failed to fetch order");
+          // throw new Error("Failed to fetch order");
       }
   } catch (error) {
-      toast.error("Failed to fatched order");
-      console.error("fetched my order ERROR:", error);
+      // toast.error("Failed to fatched order");
+      // console.error("fetched my order ERROR:", error);
       return null;
   } finally {
       toast.dismiss(toastId);
@@ -96,7 +96,7 @@ export const changeOrderStatus = async (orderData, token) => {
 
     const response = await axios.post(CHANGE_ORDER_STATUS, orderData, { headers });
 
-    console.log('status res:', response);
+    //console.log('status res:', response);
     if (response?.data?.success) {
       toast.success('Status Updated');
       return response.data;
@@ -104,8 +104,8 @@ export const changeOrderStatus = async (orderData, token) => {
       throw new Error('Failed to update status');
     }
   } catch (error) {
-    toast.error('Failed to update status');
-    console.error('ORDER Status ERROR:', error);
+    // toast.error('Failed to update status');
+    // console.error('ORDER Status ERROR:', error);
     return null;
   } finally {
     toast.dismiss(toastId);

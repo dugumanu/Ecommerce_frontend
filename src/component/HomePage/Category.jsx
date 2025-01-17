@@ -20,7 +20,7 @@ export default function Category() {
             const result = await fetchAllCategories();
             setCategories(result || []); // Ensure fallback to an empty array if result is null or undefined
         } catch (error) {
-            console.log("Error in fetching categories: ", error);
+            //console.log("Error in fetching categories: ", error);
             setCategories([]); // Set to an empty array if an error occurs
         }
     };
@@ -31,7 +31,7 @@ export default function Category() {
             dispatch(setBanner(response[0]?.banner || null)); // Safeguard for null or undefined response
             dispatch(setProductData(response[0]?.products || [])); // Safeguard for null or undefined products
         } catch (error) {
-            console.log("Error in fetching product by category: ", error);
+            //console.log("Error in fetching product by category: ", error);
         }
     };
 
@@ -41,7 +41,7 @@ export default function Category() {
             dispatch(setBanner(null));
             dispatch(setProductData(response || [])); // Safeguard for null or undefined response
         } catch (error) {
-            console.log("Error in fetching products for you: ", error);
+            //console.log("Error in fetching products for you: ", error);
         }
     };
 

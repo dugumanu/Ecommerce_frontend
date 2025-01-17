@@ -32,7 +32,7 @@ function Signup() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Form data submitted:", formData);
+        //console.log("Form data submitted:", formData);
 
         
 
@@ -46,7 +46,7 @@ function Signup() {
             return
         }
         const response = await signupUser(formData,navigate);
-        console.log("response from login ", response)
+        //console.log("response from login ", response)
     };
 
     return (

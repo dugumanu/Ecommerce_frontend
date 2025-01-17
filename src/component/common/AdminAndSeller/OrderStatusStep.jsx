@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { changeOrderStatus } from "../../../services/operations/order";
+import toast from "react-hot-toast";
 
-export default function OrderStatusStep({ orderId, paymentId, currentStatus = "pending" }) {
+export default function OrderStatusStep({ orderId, paymentId, currentStatus = "pending", sellerId }) {
   const steps = [
     { id: 1, name: "Pending" },
     { id: 2, name: "Shipped" },
@@ -22,7 +23,8 @@ export default function OrderStatusStep({ orderId, paymentId, currentStatus = "p
   );
 
   const handleStepClick = (step) => {
-    if (role === "customer" && step.name !== "Cancelled") {
+    if (role === "customer" && step.name !== "Cancelled" || (profileData?._id !== sellerId && step.name !== "Cancelled" )) {
+      toast.error("Only seller can update !")
       return;
     }
     setSelectedStep(step);
@@ -30,9 +32,9 @@ export default function OrderStatusStep({ orderId, paymentId, currentStatus = "p
   };
 
   const handleConfirm = async () => {
-    console.log(`Status updated to: ${selectedStep.name}`);
+    //console.log(`Status updated to: ${selectedStep.name}`);
     if (selectedStep.name === "Delivered") {
-      console.log(`Payment Status: ${paymentStatus}`);
+      //console.log(`Payment Status: ${paymentStatus}`);
     }
 
     const orderData = {
@@ -68,12 +70,12 @@ export default function OrderStatusStep({ orderId, paymentId, currentStatus = "p
   : "bg-gray-300 text-black"}
 
                   ${
-                    role === "customer" && step.name !== "Cancelled"
+                    role === "customer" && step.name !== "Cancelled" || (profileData?._id !== sellerId && step.name !== "Cancelled" )
                       ? "cursor-not-allowed opacity-50"
                       : ""
                   }`}
                 onClick={() => handleStepClick(step)}
-                disabled={role === "customer" && step.name !== "Cancelled"}
+                disabled={role === "customer" && step.name !== "Cancelled"|| (profileData?._id !== sellerId && step.name !== "Cancelled" )}
               >
                 {index + 1}
               </button>

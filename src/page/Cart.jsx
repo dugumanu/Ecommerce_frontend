@@ -125,7 +125,7 @@ export default function Cart() {
 
                 {/* Total Price and Buy Now */}
                 <div className="mt-6 w-full flex justify-between items-center">
-                    <p className="text-xl font-semibold">Total Price: <span className="text-green-600">₹{totalPrice}</span></p>
+                    <p className="text-xl font-semibold">Total Price: <span className="text-green-600"> <PriceComponent amount={totalPrice} /> </span></p>
                     <button onClick={() => buyNowHandler()} className="bg-green text-white py-2 px-6 rounded-md hover:bg-green-700 transition">
                         Buy Now
                     </button>

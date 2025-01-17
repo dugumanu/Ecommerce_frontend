@@ -6,7 +6,7 @@ import OrderStatusStep from "../common/AdminAndSeller/OrderStatusStep";
 
 export default function OrderList({ orders }) {
   const navigate = useNavigate();
-
+  const reversedOrders = [...orders].reverse();
   const handleProductClick = (product) => {
     const productCategory = product?.categoryId?.name;
     const productName = product?.name;
@@ -21,7 +21,7 @@ export default function OrderList({ orders }) {
     <div className="min-h-screen bg-gray-100 py-6 flex flex-col items-center">
       <div className="w-full max-w-4xl bg-white shadow-md rounded-md p-6">
         <h1 className="text-2xl font-bold text-gray-800 mb-6">My Orders</h1>
-        {orders.map((order, index) => (
+        {reversedOrders.map((order, index) => (
           <div
             key={order._id}
             className="mb-6 border border-gray-200 rounded-lg p-4 bg-gray-50 shadow-sm"
@@ -87,7 +87,7 @@ export default function OrderList({ orders }) {
             </div>
             
       
-          <OrderStatusStep orderId = {order?._id} paymentId = {order?.paymentStatus?._id} currentStatus={order?.status} />
+          <OrderStatusStep orderId = {order?._id} sellerId = {order?.productId?.sellerId} paymentId = {order?.paymentStatus?._id} currentStatus={order?.status} />
         
       
           </div>

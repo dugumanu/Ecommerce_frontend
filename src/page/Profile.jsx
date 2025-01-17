@@ -9,7 +9,7 @@ export default function Profile() {
     // const data = localStorage.getItem("profileData")
 
     // useEffect(() => {
-    //   console.log(profileData,data)
+    //   //console.log(profileData,data)
     // }, []);
   return (
     <div className=' w-full flex justify-center items-center ' >

@@ -11,7 +11,7 @@ const {CREATECATEGORY, GET_ALL_CATEGORY , GET_CATEGORY_BY_ID, DELETE_CATEGORY_BY
 
 export const createCategory = async (categoryData,token) => {
     const toastId = toast.loading("Creating category...");
-    console.log("token ", token)
+    //console.log("token ", token)
     try {
         // Define headers
         const headers = {
@@ -46,15 +46,15 @@ export const fetchCategoryById = async (id) => {
         const response = await apiconnector("GET", GET_CATEGORY_BY_ID(id));
         
         if (response?.data?.success) {
-            toast.success("Category fetched successfully");
-            console.log("RESPONSE FROM FETCH ALL CATEGORY ", response )
+            // toast.success("Category fetched successfully");
+            //console.log("RESPONSE FROM FETCH ALL CATEGORY ", response )
             return response.data.category; 
         } else {
             throw new Error("Category not found");
         }
     } catch (error) {
-        toast.error("Failed to fetch category");
-        console.error("FETCH CATEGORY ERROR:", error);
+        // toast.error("Failed to fetch category");
+        // console.error("FETCH CATEGORY ERROR:", error);
         return null;
     } finally {
         toast.dismiss(toastId);
@@ -71,21 +71,21 @@ export const deleteCategoryById = async (id, token) => {
                 'Content-Type': 'application/json'  
             }
         });
-        console.log("Response from deleting category: ", response);
+        //console.log("Response from deleting category: ", response);
 
 
         const data = await response.json(); 
 
         if (response.ok && data.success) {
             toast.success("Category deleted successfully");
-            console.log("Response from deleting category: ", data);
+            //console.log("Response from deleting category: ", data);
             return data.category;  
         } else {
             throw new Error(data.message || 'Failed to delete category');
         }
     } catch (error) {
         toast.error("Failed to delete category");
-        console.error("DELETE CATEGORY ERROR:", error);
+        // console.error("DELETE CATEGORY ERROR:", error);
         return null;
     } finally {
         toast.dismiss(toastId);
@@ -99,17 +99,17 @@ export const fetchAllCategories = async () => {
     const toastId = toast.loading("Loading categories...");
     try {
         const response = await apiconnector("GET", GET_ALL_CATEGORY);
-        console.log("RESPONSE FROM FETCH ALL CATEGORY ", response )
+        //console.log("RESPONSE FROM FETCH ALL CATEGORY ", response )
         if (response?.data?.success) {
-            toast.success("Categories fetched successfully");
-            console.log("DATA FROM ALL CATEGORY ", response.data.categories )
+            // toast.success("Categories fetched successfully");
+            //console.log("DATA FROM ALL CATEGORY ", response.data.categories )
             return response.data.categories; 
         } else {
             throw new Error("Failed to fetch categories");
         }
     } catch (error) {
-        toast.error("Failed to fetch categories");
-        console.error("FETCH ALL CATEGORIES ERROR:", error);
+        // toast.error("Failed to fetch categories");
+        // console.error("FETCH ALL CATEGORIES ERROR:", error);
         return null;
     } finally {
         toast.dismiss(toastId);

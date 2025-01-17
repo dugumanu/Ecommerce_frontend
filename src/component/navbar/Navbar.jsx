@@ -13,6 +13,8 @@ import { setProductData } from '../../slices/productSlice';
 import { searchAll } from '../../services/operations/search';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../services/operations/auth';
+import { socialData } from '../../data/data';
+
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -86,12 +88,12 @@ export default function Navbar() {
         <div className='flex w-[50%] justify-center items-center space-x-4'>
           <p className='flex items-center'>
             <a href="tel:+1234567890" className='flex justify-center flex-row items-center'>
-              <MdPhone className='mr-2' /> +123 456 7890
+              <MdPhone className='mr-2' /> {socialData.phone}
             </a>
           </p>
           <p className='flex items-center'>
             <a href="mailto:example@email.com" className='flex justify-center flex-row items-center'>
-              <MdEmail className='mr-2' /> example@email.com
+              <MdEmail className='mr-2' /> {socialData.mail}
             </a>
           </p>
         </div>
@@ -109,19 +111,19 @@ export default function Navbar() {
 
           {/* Social media icons */}
           <div className='flex flex-row gap-3'>
-            <a href="#" target="_blank" rel="noopener noreferrer">
+            <a href={`${socialData.facebook}`} target="_blank" rel="noopener noreferrer">
               <FaFacebook className='hover:text-green-500' />
             </a>
-            <a href="#" target="_blank" rel="noopener noreferrer">
+            <a href={`${socialData.x}`} target="_blank" rel="noopener noreferrer">
               <FaTwitter className='hover:text-green-500' />
             </a>
-            <a href="#" target="_blank" rel="noopener noreferrer">
+            <a href={`${socialData.insta}`} target="_blank" rel="noopener noreferrer">
               <FaInstagram className='hover:text-green-500' />
             </a>
-            <a href="#" target="_blank" rel="noopener noreferrer">
+            <a href={`${socialData.linkedin}`} target="_blank" rel="noopener noreferrer">
               <FaLinkedin className='hover:text-green-500' />
             </a>
-            <a href="#" target="_blank" rel="noopener noreferrer">
+            <a href={`https://wa.me/${socialData.whatsapp}`} target="_blank" rel="noopener noreferrer">
               <FaWhatsapp className='hover:text-green-500' />
             </a>
           </div>
@@ -131,7 +133,7 @@ export default function Navbar() {
       {/* Main Navbar */}
       <div className='py-2 w-[80%] lg:ml-[17%] mx-auto flex flex-row justify-between md:justify-center items-center'>
         <NavLink to="/" className="flex lg:w-[10%] md:w-[30%] gap-2">
-          <img src={logo} alt='logo' />
+          <img src={socialData.logo} alt='logo' />
           <img src={logoName} alt='logoName' />
         </NavLink>
 

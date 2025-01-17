@@ -8,7 +8,7 @@ export default function HomePage() {
     <div>
       <SearchFilterAndCategoryList/>
       <CategoryProduct/>
-      {/* <Footer/> */}
+      <Footer/>
     
     </div>
   )

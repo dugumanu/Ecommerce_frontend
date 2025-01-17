@@ -10,7 +10,7 @@ const {CREATECATEGORY, GET_ALL_CATEGORY , GET_CATEGORY_BY_ID, DELETE_CATEGORY_BY
 
 
 export const createCategory = async (categoryData,token) => {
-    const toastId = toast.loading("Creating category...");
+    // const toastId = toast.loading("Creating category...");
     //console.log("token ", token)
     try {
         // Define headers
@@ -35,7 +35,7 @@ export const createCategory = async (categoryData,token) => {
         console.error("CREATE CATEGORY ERROR:", error);
         return null;
     } finally {
-        toast.dismiss(toastId);
+        // toast.dismiss(toastId);
     }
 };
 
@@ -96,7 +96,7 @@ export const deleteCategoryById = async (id, token) => {
 
 
 export const fetchAllCategories = async () => {
-    const toastId = toast.loading("Loading categories...");
+    // const toastId = toast.loading("Loading categories...");
     try {
         const response = await apiconnector("GET", GET_ALL_CATEGORY);
         //console.log("RESPONSE FROM FETCH ALL CATEGORY ", response )
@@ -112,7 +112,7 @@ export const fetchAllCategories = async () => {
         // console.error("FETCH ALL CATEGORIES ERROR:", error);
         return null;
     } finally {
-        toast.dismiss(toastId);
+        // toast.dismiss(toastId);
     }
 };
 

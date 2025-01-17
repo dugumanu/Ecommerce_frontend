@@ -61,7 +61,7 @@ export default function Router() {
           </>
         )}
 
-        {profileData?.role === "seller" || profileData?.role === "admin" && (
+        { ((profileData?.role === "seller") || (profileData?.role === "admin")) && (
           <>
           <Route path="/dashboard/order-tracking" element={<PrivateRoute><SellerOrder /></PrivateRoute>} />
           </>

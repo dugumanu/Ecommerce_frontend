@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { socialData } from '../data/data';
+
 
 function OrderOnDemand() {
   const [showPopup, setShowPopup] = useState(false); // State to control the pop-up visibility
-  const contactNumber = "+1234567890"; // Replace with your contact number
-  const contactEmail = "support@example.com"; // Replace with your email
+  const contactNumber = socialData.phone // Replace with your contact number
+  const contactEmail = socialData.mail; // Replace with your email
 
   // Form submission handler
   const handleSubmit = (event) => {

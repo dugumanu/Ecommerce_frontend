@@ -62,7 +62,7 @@ export const getProductByUserID = async (token) => {
 
 
 export const fetchProductById = async (id) => {
-    const toastId = toast.loading("Loading product...");
+    // const toastId = toast.loading("Loading product...");
     try {
         const response = await apiconnector("GET", GET_PRODUCT_BY_ID(id));
         if (response?.data?.success) {
@@ -76,12 +76,12 @@ export const fetchProductById = async (id) => {
         // console.error("FETCH PRODUCT ERROR:", error);
         return null;
     } finally {
-        toast.dismiss(toastId);
+        // toast.dismiss(toastId);
     }
 };
 
 export const fetchProductByCategoryId = async (id) => {
-    const toastId = toast.loading("Loading product...");
+    // const toastId = toast.loading("Loading product...");
     try {
         const response = await apiconnector("GET", GET_PRODUCT_BY_CATEGORYID(id));
         //console.log("RESPONSE FROM PRODUCT BY CATEGORY : ", response)
@@ -96,13 +96,13 @@ export const fetchProductByCategoryId = async (id) => {
         // console.error("FETCH PRODUCT ERROR:", error);
         return null;
     } finally {
-        toast.dismiss(toastId);
+        // toast.dismiss(toastId);
     }
 };
 
 
 export const fetchAllProducts = async () => {
-    const toastId = toast.loading("Loading products...");
+    // const toastId = toast.loading("Loading products...");
     try {
         const response = await apiconnector("GET", GET_ALL_PRODUCTS);
 
@@ -118,12 +118,12 @@ export const fetchAllProducts = async () => {
         // console.error("FETCH ALL PRODUCTS ERROR:", error);
         return null;
     } finally {
-        toast.dismiss(toastId);
+        // toast.dismiss(toastId);
     }
 };
 
 export const fetchForYouProducts = async () => {
-    const toastId = toast.loading("Loading products...");
+    // const toastId = toast.loading("Loading products...");
     try {
         const response = await apiconnector("GET", FOR_YOU);
         if (response?.data?.success) {
@@ -138,7 +138,7 @@ export const fetchForYouProducts = async () => {
         // console.error("FETCH ALL PRODUCTS ERROR:", error);
         return null;
     } finally {
-        toast.dismiss(toastId);
+        // toast.dismiss(toastId);
     }
 };
 

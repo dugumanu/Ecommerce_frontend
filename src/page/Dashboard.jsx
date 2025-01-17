@@ -33,7 +33,7 @@ export default function Dashboard() {
           <Sidebar />
         </Menu>
       ) : (
-        <Sidebar />
+        <div><Sidebar /></div>
       )}
 
       <div className={`flex justify-center items-center w-full transition-all duration-300 ${isMobile ? 'ml-0' : 'ml-64'}`}>

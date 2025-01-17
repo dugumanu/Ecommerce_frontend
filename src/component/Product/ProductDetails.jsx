@@ -152,7 +152,7 @@ export default function ProductDetail() {
 
           {/* Right section */}
           <div className='w-full md:w-[70%] flex flex-col md:justify-start gap-5 md:items-start items-start justify-center'>
-            <p className='text-[16px]'>Rating: {productData?.rating}</p>
+            {/* <p className='text-[16px]'>Rating: {productData?.rating}</p> */}
             <p className='font-bold text-[22px]'>{productData?.name}</p>
             <div className='flex flex-row items-start justify-start gap-6'>
               <p className='md:text-[28px] text-[22px] font-bold text-green'> <PriceComponent amount={productData?.price} />  </p>

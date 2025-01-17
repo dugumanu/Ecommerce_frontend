@@ -13,7 +13,7 @@ function App() {
       <ShortcutBar/>
       
       <Router/>
-      <Footer/>
+      {/* <Footer/> */}
     </div>
   );
 }

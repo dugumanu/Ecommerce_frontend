@@ -89,7 +89,7 @@ export default function CreateProduct() {
             className="mt-2 w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-400"
           >
             <option value="">Select Category</option>
-            {categories.map((category) => (
+            {categories?.map((category) => (
               <option key={category._id} value={category._id}>
                 {category.name}
               </option>

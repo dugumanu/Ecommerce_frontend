@@ -133,8 +133,8 @@ export default function Navbar() {
       {/* Main Navbar */}
       <div className='py-2 w-[80%] lg:ml-[17%] mx-auto flex flex-row justify-between md:justify-center items-center'>
         <NavLink to="/" className="flex lg:w-[10%] md:w-[30%] gap-2">
-          <img src={socialData.logo} alt='logo' />
-          <img src={logoName} alt='logoName' />
+          <img src={socialData.logo} alt='logo' className=' h-12  md:h-full ' />
+          {/* <img src={socialData.logoName} alt='logoName' /> */}
         </NavLink>
 
         {/* Desktop Menu */}

@@ -43,6 +43,13 @@ export default function SearchFilter() {
       }
     }
   };
+  const fetchBiharCities = () => {
+    const biharState = State.getStatesOfCountry("IN").find(state => state.name === "Bihar");
+    if (biharState) {
+      const cities = City.getCitiesOfState("IN", biharState.isoCode);
+      setCities(cities);
+    }
+  };
 
   const dispatch = useDispatch();
 
@@ -76,6 +83,7 @@ export default function SearchFilter() {
 
   useEffect(() => {
     fetchCategory();
+    fetchBiharCities()
   }, []);
 
   return (
@@ -121,11 +129,11 @@ export default function SearchFilter() {
         <option value="">Select City</option>
         <option value="Siwan">Siwan</option>
 
-        {/* {cities.map((city) => (
+        {cities.map((city) => (
           <option key={city.name} value={city.name}>
             {city.name}
           </option>
-        ))} */}
+        ))}
       </select>
 
       <div className='border-[1px] md:block hidden h-[30px]  mt-[1%] border-gray-400 '  ></div>

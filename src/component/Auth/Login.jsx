@@ -3,6 +3,9 @@ import { FaUser, FaLock } from "react-icons/fa";
 import { loginUser } from "../../services/operations/auth";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+import { BASE_URL } from "../../services/api";
+import { clientId } from "../../data/data";
 
 function Login() {
     const [formData, setFormData] = useState({
@@ -12,7 +15,6 @@ function Login() {
     });
 
     const { profileData, token } = useSelector((state) => state.auth);
-
     const navigate = useNavigate();
     const location = useLocation(); 
     const dispatch = useDispatch();
@@ -29,10 +31,38 @@ function Login() {
   
     const handleSubmit = async (e) => {
       e.preventDefault();
-      //console.log("Form data submitted:", formData);
       await loginUser(formData, navigate, formData.keepLoggedIn, dispatch);
-      //console.log("Profile Data ", profileData)
       navigate(from, { replace: true });  
+    };
+
+    const handleSuccess = async (credentialResponse) => {
+        const { credential } = credentialResponse;
+        try {
+            const response = await fetch(`${BASE_URL}/auth/google-login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ token: credential }), 
+            });
+    
+            if (response.ok) {
+                const data = await response.json();
+                localStorage.setItem("profileData", JSON.stringify(data?.user));  
+                localStorage.setItem("token", data?.token); 
+                navigate("/dashboard");
+                console.log("GOOGLE LOGIN SUCCESSFULL !")
+            } else {
+                console.error('Google login failed:', await response.json());
+                
+            }
+        } catch (error) {
+            console.error('Error sending credential to backend:', error);
+        }
+    };
+
+    const handleFailure = () => {
+        console.error('Login Failed');
     };
 
     return (
@@ -88,12 +118,16 @@ function Login() {
                     <div className="flex items-center justify-center mt-4 text-gray-500">
                         <span className="mr-2">or</span>
                     </div>
-                    <button
-                        type="button"
-                        className="w-full py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
-                    >
-                        Sign in with Google
-                    </button>
+                    <div className="w-full max-w-sm p-8 bg-white rounded-lg shadow-lg">
+                        <h2 className="text-2xl font-semibold text-center mb-6">Login with Google</h2>
+                        <GoogleOAuthProvider clientId={clientId}>
+                            <GoogleLogin
+                                onSuccess={handleSuccess}
+                                onError={handleFailure}
+                                useOneTap
+                            />
+                        </GoogleOAuthProvider>
+                    </div>
                     <p className="text-center text-sm text-gray-500 mt-4">
                         Don’t have an account? <a href="/register/customer" className="text-blue-500 hover:underline">Register now</a>
                     </p>

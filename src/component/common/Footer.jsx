@@ -13,8 +13,8 @@ export default function Footer() {
           {/* Left Section - Logo and Tagline */}
           <div className="flex flex-col items-start">
             <div className="flex items-center space-x-2 mb-3">
-              <img src={logo} alt="indiashop logo" className="h-8 w-auto" />
-              <img src={indiaShop} alt="indiashop text" className="h-6 w-auto" />
+              <img src={socialData.pngLogo} alt="indiashop logo" className="md:h-12 h-12 w-auto" />
+              {/* <img src={indiaShop} alt="indiashop text" className="h-6 w-auto" /> */}
             </div>
             <p className="text-sm">Your one-stop solution. We got you covered!</p>
             <div className="flex space-x-4 mt-4">
@@ -96,10 +96,33 @@ export default function Footer() {
           <div>
             <h3 className="font-bold mb-3">Contact info</h3>
             <ul className="space-y-2 text-sm">
-              <li>{socialData.phone}</li>
-              <li>{socialData.mail}</li>
-              <li>Bihar, India</li>
-            </ul>
+  {/* Phone */}
+  <li>
+    <a href={`tel:${socialData.phone}`} className=" hover:underline">
+      {socialData.phone}
+    </a>
+  </li>
+
+  {/* Email */}
+  <li>
+    <a href={`mailto:${socialData.mail}`} className=" hover:underline">
+      {socialData.mail}
+    </a>
+  </li>
+
+  {/* Location */}
+  <li>
+    <a
+      href="https://www.google.com/maps/place/Bihar,+India"
+      target="_blank"
+      rel="noopener noreferrer"
+      className=" hover:underline"
+    >
+      Bihar, India
+    </a>
+  </li>
+</ul>
+
           </div>
         </div>
       </div>

@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { fetchAllCategories } from '../../services/operations/category';
 import { FiMoreHorizontal } from "react-icons/fi";
 import { fetchProductByCategoryId, fetchForYouProducts } from '../../services/operations/product'; 
-import { setProductData, setBanner, setCategory } from '../../slices/productSlice';
+import { setProductData, setBanner, setCategory, setAllCategory } from '../../slices/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi"; 
 const FORYOU = require("../../assets/award_star.png");
+
 
 export default function Category() {
     const [categories, setCategories] = useState([]);
@@ -14,11 +15,14 @@ export default function Category() {
     const { productData } = useSelector((state) => state.product);
     const categoriesPerPage = 6; 
     const dispatch = useDispatch();
+    const {allCategory} = useSelector((state) => state.product)
 
-    const fetchCategory = async () => {
+     const fetchCategory = async () => {
         try {
             const result = await fetchAllCategories();
             setCategories(result || []); // Ensure fallback to an empty array if result is null or undefined
+            dispatch(setAllCategory(result))
+            console.log("All category", allCategory)
         } catch (error) {
             //console.log("Error in fetching categories: ", error);
             setCategories([]); // Set to an empty array if an error occurs
@@ -49,6 +53,7 @@ export default function Category() {
         fetchCategory(); 
         fetchForYouProductDetails(); 
     }, []); 
+    
 
     useEffect(() => {
         if (selectedCategory !== 1) {

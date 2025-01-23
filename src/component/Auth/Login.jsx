@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import { BASE_URL } from "../../services/api";
 import { clientId } from "../../data/data";
+import { setProfileData, setToken } from "../../slices/authSlice";
+
 
 function Login() {
     const [formData, setFormData] = useState({
@@ -18,6 +20,8 @@ function Login() {
     const navigate = useNavigate();
     const location = useLocation(); 
     const dispatch = useDispatch();
+
+    
   
     const from = location.state?.from?.pathname || "/dashboard"; 
   
@@ -50,6 +54,8 @@ function Login() {
                 const data = await response.json();
                 localStorage.setItem("profileData", JSON.stringify(data?.user));  
                 localStorage.setItem("token", data?.token); 
+                dispatch(setProfileData(data?.user));
+            dispatch(setToken(data?.token));
                 navigate("/dashboard");
                 console.log("GOOGLE LOGIN SUCCESSFULL !")
             } else {
@@ -59,6 +65,8 @@ function Login() {
         } catch (error) {
             console.error('Error sending credential to backend:', error);
         }
+        
+
     };
 
     const handleFailure = () => {

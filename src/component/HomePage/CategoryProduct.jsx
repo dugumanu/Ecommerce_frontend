@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { MdOutlineShoppingBag, MdRemoveShoppingCart } from "react-icons/md";
 import { addToCart, removeFromCart } from '../../slices/cartSlice';
 import PriceComponent from '../common/Price';
+import BannerCarousel from './ForYouBanner';
 
 export default function CategoryProduct() {
     const { banner, productData, selectedCategory } = useSelector((state) => state.product);
@@ -41,16 +42,27 @@ export default function CategoryProduct() {
     return (
         <div className='flex mt-[3%] w-full md:px-[13%] flex-col justify-center items-center'>
             {/* Banner Section */}
-            <div className='flex w-full flex-col justify-center items-center'>
-                <div className='w-[95%] flex flex-col justify-center items-center'>
-                    {banner && (
-                        <div className='w-[100%] flex flex-col justify-start items-start gap-5'>
-                            <p className='font-bold text-[24px]'>Deals for you</p>
-                            <img className='rounded-xl w-full h-full bg-cover' src={banner} alt="Banner" />
-                        </div>
+        
+                <div className='flex w-full flex-col justify-center items-center'>
+                <div className="w-[95%] flex flex-col justify-center items-center">
+                    {selectedCategory === "For You" ? (
+                        <BannerCarousel />
+                    ) : (
+                        banner && (
+                            <div className="w-full flex flex-col justify-start items-start gap-5">
+                                <p className="font-bold text-[24px]">Deals for you</p>
+                                <img
+                                    className="rounded-xl w-full h-[300px] sm:h-[350px] md:h-[400px] object-cover"
+                                    src={banner}
+                                    alt="Banner"
+                                />
+                            </div>
+                        )
                     )}
                 </div>
-            </div>
+
+        </div>
+
 
             {/* Product Section */}
             <div className='flex mt-[3%] flex-col justify-center items-center'>
